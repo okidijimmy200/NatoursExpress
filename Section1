@@ -1,0 +1,66 @@
+Install express
+
+***********npm i express**********
+
+run nodemon then test our api
+
+Lecture 2:
+APIs and RESTFUL Design
+API---piece of software tht can be used by other piece of software
+to allow applications talk to each other
+
+WEB APIs
+-we build an app tht sends data to client when a request comes in.
+
+REST ARCTECTURE TO BUILD APIs
+-(Representational State Transfer)
+this is a way  of building APIs in a logical way wch is easy to consume
+
+Principles of using RESTFUL API
+-Separate API into logical resources
+-resources shd be exposed in strcutured resource-based URLs
+-to perform CRUD, API shd use right HTTP method
+-API shd send data as JSON
+-RESTFUL API mst be stateless
+
+**Separate API into logical resources
+-key abstraction in rest is the resource and the data we need to share shd be
+divided into logical resources
+
+A resource is an object or representation of something tht has data associated with it
+ie tours, users or reviews
+
+**exposed in strcutured resource-based URLs
+-we need to make available data with URL tht client can send requests to
+ie 
+    http://www.natours.com/addNewTour
+
+    /addNewTour, /getTours--endpoint
+we can have multiple endpoints
+
+the problem with these endpoints is tht they dont follow HTTP methods inorder to actions on data
+
+--these endpoints ie /getTour, we can jst write /tours and get to get it
+
+GET--this is used to perform read operation on data
+POST --used to create a new operation in our database
+PUT/PATCH --this is used to update operation(both can send data to database)
+DELETE --id shd be deleted
+
+we have operations like login, search wch are not CRUD operations bt we can create
+endpoints for them
+
+**we use json format
+
+**RESTFUL api mst be stateless
+all state is handled on the client not the server
+
+--each request mst have all the information necessary to process a certain request on the server
+
+Lecture 3:
+Starting Our API Handling GET Request
+-the result section makes a result 0f 9 from the postmn
+
+
+Lecture 4:
+Handling POST REQUESTS
