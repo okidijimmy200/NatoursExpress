@@ -34,11 +34,41 @@ app.get('/app/v1/tours', (req, res) => {
     // send back all the tours
     res.status(200).json({
         status: 'success',
-        // to have results of array
+        // to have results of array(this shows us the number of items available)
         results: tours.length,
         data:{
             // this contains the response tht we want to send
             tours
+        }
+    })
+    
+})
+
+// defining a route tht accepts a variable
+app.get('/app/v1/tours/:id', (req, res) => {
+    // request params is where all the variables of the parameter are stored
+    console.log(req.params);
+    // converting string of id into numbers(pure JS)
+    const id = req.params.id * 1;
+    
+    // getting the tours with the id
+    const tour = tours.find(el => el.id === id)
+
+// incase one sends for id of 2 items yet specified one, we use id.length
+    // if (id > tours.length) ---one way of checking tours
+    if (!tour) {
+        return res.status(404).json({
+            status:'fail',
+            message:'Invalid ID'
+        });
+    }
+
+    // send back all the tours
+    res.status(200).json({
+        status: 'success',
+        data:{
+            // this contains the response tht we want to send
+            tour
         }
     })
     
@@ -54,7 +84,7 @@ app.post('/app/v1/tours', (req, res) => {
     const newId = tours[tours.length-1].id + 1;
     const newTour = Object.assign({id: newId}, req.body);
 
-    // push tours into tours array
+    // push tours into tours section array
     tours.push(newTour)
 
     fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {

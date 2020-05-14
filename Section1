@@ -64,13 +64,46 @@ Starting Our API Handling GET Request
 
 Lecture 4:
 Handling POST REQUESTS
+-the request object holds all the data abt the request tht was done
+express puts the data on a middleware
 -create a new middleware import in the post 
 -test the request using postman
 
 we can save all our request in a new collection
+**click new collection,natours and save the request inside tht collection
 -then we save new request in tht collection
 
 --how to place data into tours-simple.json file so tht data is saved to our fictional database
 -we use JSON stringify to convert text to JSON
 
+**to read a post request in postman, we move to body-->raw-->type(json)
+--we specify json to send to server
+
+--data is then stored in tours-simplejson
 --we shd not send a response twice
+
+Lecture 5:
+RESPONDING TO URL PARAMETERS
+-how to define parameter ryt in your URL, read and respond to them
+-how do we get only one tour
+-when we need the id of an individual tour item
+
+--we perform the request for params
+ie to get item5, 127.0.0.1:8080/app/v1/tours/5
+-one the console, it prints out id of 5
+
+**we can use params to get multiple ids
+app.get('/app/v1/tours/:id/:x/:y', (req, res) 
+then we define the parameters in the get url in postman
+127.0.0.1:8080/app/v1/tours/5/23/6
+we get 3 items
+
+--to make a parameter optional, we add a ? mark to it
+****app.get('/app/v1/tours/:id/:x/:y?', (req, res) ***
+so its not a must we specify it
+
+
+--when we perform a get, we get one with particular id of 5
+
+incase one sends for id of 2 items yet specified one, we use id.length
+if its longer, throw an error
