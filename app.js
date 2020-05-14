@@ -3,6 +3,9 @@ const express = require('express')
 
 const app = express();
 
+// using middleware
+app.use(express.json())
+
  
 // defining the routes
 // what we want the user to do
@@ -41,6 +44,30 @@ app.get('/app/v1/tours', (req, res) => {
     
 })
 
+// performing a post request
+app.post('/app/v1/tours', (req, res) => {
+    // to have data available, we use middleware
+    // body is data available on request
+    // console.log(req.body)
+    // figure out id of new object
+
+    const newId = tours[tours.length-1].id + 1;
+    const newTour = Object.assign({id: newId}, req.body);
+
+    // push tours into tours array
+    tours.push(newTour)
+
+    fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {
+        // when file is written, 201 stands for created
+        res.status(201).json({
+            status: 'success',
+            data: {
+                tour: newTour
+            }
+        })
+    })
+    
+})
 // start up a server
 
 const port = 8080

@@ -64,3 +64,13 @@ Starting Our API Handling GET Request
 
 Lecture 4:
 Handling POST REQUESTS
+-create a new middleware import in the post 
+-test the request using postman
+
+we can save all our request in a new collection
+-then we save new request in tht collection
+
+--how to place data into tours-simple.json file so tht data is saved to our fictional database
+-we use JSON stringify to convert text to JSON
+
+--we shd not send a response twice
