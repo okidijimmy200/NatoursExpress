@@ -124,3 +124,4 @@ Handling DELETE Request
 Lecture 7:
 Refactoring our Routes
 -how to organise our routes to look better
+we are going to export handler function into its own function

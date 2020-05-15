@@ -28,9 +28,9 @@ const tours = JSON.parse(
     fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'UTF-8')
 );
 
-// building out Tours API
-// v1--API version wch helps us to do changes to API by moving it to v2
-app.get('/app/v1/tours', (req, res) => {
+
+// creating a new function for tours
+const getAllTours =  (req, res) => {
     // send back all the tours
     res.status(200).json({
         status: 'success',
@@ -42,10 +42,9 @@ app.get('/app/v1/tours', (req, res) => {
         }
     })
     
-})
-
-// defining a route tht accepts a variable
-app.get('/app/v1/tours/:id', (req, res) => {
+}
+// creating function for getTour
+const getTour =  (req, res) => {
     // request params is where all the variables of the parameter are stored
     console.log(req.params);
     // converting string of id into numbers(pure JS)
@@ -72,15 +71,10 @@ app.get('/app/v1/tours/:id', (req, res) => {
         }
     })
     
-})
-
-// performing a post request
-app.post('/app/v1/tours', (req, res) => {
-    // to have data available, we use middleware
-    // body is data available on request
-    // console.log(req.body)
-    // figure out id of new object
-
+}
+// function for creating a request
+const createTour =  (req, res) => {
+    
     const newId = tours[tours.length-1].id + 1;
     const newTour = Object.assign({id: newId}, req.body);
 
@@ -97,10 +91,9 @@ app.post('/app/v1/tours', (req, res) => {
         })
     })
     
-})
-// performin patch operation
-// id of tours to be updated needs to be stated
-app.patch('/api/v1/tours/:id', (req, res) => {
+}
+// update tour function
+const updateTour = (req, res) => {
     // incase the id is valid
     if (req.params.id * 1 > tours.length) {
         return res.status(404).json({
@@ -115,10 +108,9 @@ app.patch('/api/v1/tours/:id', (req, res) => {
             tour: '<Updated Tour...>'
         }
     })
-})
-
-// to handle the delete request
-app.delete('/api/v1/tours/:id', (req, res) => {
+}
+// delete tour function
+const deleteTour = (req, res) => {
     // incase the id is valid
     if (req.params.id * 1 > tours.length) {
         return res.status(404).json({
@@ -131,7 +123,29 @@ app.delete('/api/v1/tours/:id', (req, res) => {
         status: 'success',
         data: null
     })
-})
+}
+// building out Tours API
+// v1--API version wch helps us to do changes to API by moving it to v2
+// app.get('/app/v1/tours', getAllTours)
+
+// defining a route tht accepts a variable
+// app.get('/app/v1/tours/:id',getTour)
+
+// // performing a post request
+// app.post('/app/v1/tours', createTour)
+// // performin patch operation
+// // id of tours to be updated needs to be stated
+// app.patch('/api/v1/tours/:id',updateTour )
+
+// // to handle the delete request
+// app.delete('/api/v1/tours/:id', deleteTour)
+
+// specifying the route we want
+app.route('/app/v1/tours').get(getAllTours).post(createTour)
+
+// other routes
+app.route('/app/v1/tours').get(getTour).patch(updateTour).delete(deleteTour)
+
 // start up a server
 const port = 8080
 app.listen(port, () => {
