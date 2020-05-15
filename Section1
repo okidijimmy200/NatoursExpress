@@ -115,3 +115,12 @@ Handling PATCH Requests
 -patch, we only expect properties to be updated in the object
 
 --if we want to change tour/3 with available data
+
+Lecture 6:
+Handling DELETE Request
+-we are able to delete tours in postman
+-when we send the request, it returns a 204 meaninig null
+
+Lecture 7:
+Refactoring our Routes
+-how to organise our routes to look better

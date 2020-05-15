@@ -117,7 +117,21 @@ app.patch('/api/v1/tours/:id', (req, res) => {
     })
 })
 
-
+// to handle the delete request
+app.delete('/api/v1/tours/:id', (req, res) => {
+    // incase the id is valid
+    if (req.params.id * 1 > tours.length) {
+        return res.status(404).json({
+            status:'fail',
+            message:'Invalid ID'
+        });
+    }
+    // 204--means no content so we sent data as null
+    res.status(204).json({
+        status: 'success',
+        data: null
+    })
+})
 // start up a server
 const port = 8080
 app.listen(port, () => {
