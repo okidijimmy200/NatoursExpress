@@ -6,21 +6,19 @@ const app = express();
 // using middleware
 app.use(express.json())
 
- 
-// defining the routes
-// what we want the user to do
-// app.get('/', (req, res) => {
-//     // sending back data
-//     // sending json to client
-//     // json automatically sets the content type to application.json
-//     res.status(200).json({message: 'Hello from the other side', app: 'Natours'})
+// creating our own middleware functions
+app.use((req, res, next)  => {
+    console.log('hello from the middleware')
+    // we need to call the next function to move on and b able to send back request to the server
+    next();
+})
 
-// })
-
-// // performing a post request
-// app.post('/', (req, res) => {
-//     res.send('post to this endpoint')
-// })
+// middleware to manipulate the requests
+app.use((req, res, next)  => {
+    // adding current time to the request and onverting it to string
+    req.requestTime = new Date().toISOString();    
+    next();
+})
 
 // reading data from tours
 // we use JSON.parse to pass an array of JS objects
@@ -31,9 +29,14 @@ const tours = JSON.parse(
 
 // creating a new function for tours
 const getAllTours =  (req, res) => {
+    // checking out request tours middleware
+    console.log(req.requestTime)
+    
     // send back all the tours
     res.status(200).json({
         status: 'success',
+        // sending requestTime to tour
+        requestedAt: req.requestTime,
         // to have results of array(this shows us the number of items available)
         results: tours.length,
         data:{
@@ -124,21 +127,6 @@ const deleteTour = (req, res) => {
         data: null
     })
 }
-// building out Tours API
-// v1--API version wch helps us to do changes to API by moving it to v2
-// app.get('/app/v1/tours', getAllTours)
-
-// defining a route tht accepts a variable
-// app.get('/app/v1/tours/:id',getTour)
-
-// // performing a post request
-// app.post('/app/v1/tours', createTour)
-// // performin patch operation
-// // id of tours to be updated needs to be stated
-// app.patch('/api/v1/tours/:id',updateTour )
-
-// // to handle the delete request
-// app.delete('/api/v1/tours/:id', deleteTour)
 
 // specifying the route we want
 app.route('/app/v1/tours').get(getAllTours).post(createTour)

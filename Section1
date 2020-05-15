@@ -125,3 +125,27 @@ Lecture 7:
 Refactoring our Routes
 -how to organise our routes to look better
 we are going to export handler function into its own function
+
+Lecture 8:
+middleware and the request response cycle
+
+incoming request -------------------------------------> response-
+
+-when a user sends a request, its sent to the server, processes the request and
+the server sends a response
+**middleware is used to process the request and manipulate the data
+-middleware is mainly about the request
+-its called middleware bse its a function executed btn receiving and sending a request
+examples of middleware is parser body, logging, setting headers, router
+-all middleware used in our system is called middleware stack
+
+the request response cycle starts with the incoming requests then executing all the middleware
+in the middleware stack step by step and finally sending the request to finish the cycle
+
+Lecture 9:
+Creating our own middleware
+-the order in wch we place the middleare does matter alot
+ie if we place custom middleware jst below route for getAlltours, it doesnot run
+-this is bse the request response cycle would be broken 
+
+-when we perform the requested at response, we get time it was requested
