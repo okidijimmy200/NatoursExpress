@@ -98,8 +98,27 @@ app.post('/app/v1/tours', (req, res) => {
     })
     
 })
-// start up a server
+// performin patch operation
+// id of tours to be updated needs to be stated
+app.patch('/api/v1/tours/:id', (req, res) => {
+    // incase the id is valid
+    if (req.params.id * 1 > tours.length) {
+        return res.status(404).json({
+            status:'fail',
+            message:'Invalid ID'
+        });
+    }
+    res.status(200).json({
+        status: 'success',
+        data: {
+            // we will send an updated string for tour
+            tour: '<Updated Tour...>'
+        }
+    })
+})
 
+
+// start up a server
 const port = 8080
 app.listen(port, () => {
     console.log(`App running on port ${port}...`)

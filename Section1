@@ -107,3 +107,11 @@ so its not a must we specify it
 
 incase one sends for id of 2 items yet specified one, we use id.length
 if its longer, throw an error
+
+Lecture 6:
+Handling PATCH Requests
+-to update data, we use put and patch
+-put, the app expects to recieve the entire new updated object
+-patch, we only expect properties to be updated in the object
+
+--if we want to change tour/3 with available data
