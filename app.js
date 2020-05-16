@@ -1,12 +1,19 @@
 const fs = require('fs')
 const express = require('express')
+// importing morgan
+const morgan = require('morgan')
 
 const app = express();
+
+// using the middleware
+app.use(morgan('dev'));
 
 // using middleware
 app.use(express.json())
 
+
 // creating our own middleware functions
+// **wen we use morgan, its similar to using the middleware below
 app.use((req, res, next)  => {
     console.log('hello from the middleware')
     // we need to call the next function to move on and b able to send back request to the server

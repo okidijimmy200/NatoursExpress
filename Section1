@@ -149,3 +149,17 @@ ie if we place custom middleware jst below route for getAlltours, it doesnot run
 -this is bse the request response cycle would be broken 
 
 -when we perform the requested at response, we get time it was requested
+
+Lecture 10:
+Using 3rd party middleware:
+-we will use a middleware called morgan wch is a middleware for logging
+-this helps us see a new request in the terminal
+
+*****************npm i morgan*********************8
+
+Lecture 11:
+Implementing the user Routes
+-we will have tours resource
+-users resource for accounts
+-
+
