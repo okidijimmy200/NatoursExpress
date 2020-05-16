@@ -162,4 +162,13 @@ Implementing the user Routes
 -we will have tours resource
 -users resource for accounts
 -
+-we need to create folders for Users resource and tours resource
+
+Lecture 12:
+Creating abd mounting Routes
+-we need to separate multiple codes into different files
+--one file for handlers for users
+--one file for handlers for tours\
+
+-we will create one router for each resource
 
