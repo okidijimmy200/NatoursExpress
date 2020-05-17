@@ -172,3 +172,13 @@ Creating abd mounting Routes
 
 -we will create one router for each resource
 
+Lecture 13:
+Creating a better file strcuture
+-separate our router into new files
+-create a folder for routes
+-we create a folder for route handlers
+-we create a serverjsfile
+server.js will be our starting file and its where we will have everything related to it
+
+=so now we need to run server.js
+
