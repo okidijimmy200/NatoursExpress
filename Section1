@@ -182,3 +182,61 @@ server.js will be our starting file and its where we will have everything relate
 
 =so now we need to run server.js
 
+Lecture 14:
+PARM MIDDLEWARE:
+-Param middleware is middleware tht runs for certain parameters ie
+'/:id' so we write middlw when we run this
+
+--to check the param val, we use get for particular tour ie 3
+-this middleware will not work for users
+
+-we have a couple of functions in tourController wch check if the route is valid or not
+-we have this code and its not good prctice to repeat code
+-we will have a param middle ware to perform these tasks
+
+
+--so this param middleware works for when the id is specified and displays content on the console
+-if its a general get, it doesnot display any content
+
+Lecture 15:
+Chaining multiple middleware functions
+--we use multiple middleware functions to perform multiple tasks at once on a request
+-we create a new tour and test if it works
+
+--we can use this to check if the user is logged in, whether he has previlledge rights
+
+Lecture 16:
+Serving Static files
+-static files are files sitting in our folders tht we cant access using routes ie overview.html
+--to access our files, we use a built in middleware
+
+--to access the overview, we use the 127.0.0.1:8080/overview.html
+
+Lecture 17:
+Enviroment Variables:
+-dev Enviroment
+-production Enviroment
+
+--everything not related to express is performed outside the app.js file
+-we perform it in the server.js file
+
+-in the server.js file,we check the env we are running on wch is an express env Variables
+
+--we also have nodejs env variables
+
+--express uses a common variable called Node n wch defines whether we are in dev or prod
+
+--to determine wch env we want to run for express, we need to pre-pend it to our terminal
+
+install globally before installing dev environment
+******npm install -g win-node-env*************
+
+***********NODE_ENV=development nodemon server.js********
+wch sets the node env to development
+
+--we create a config file for defining our environment variables
+-wch i config
+--we use .env extension to make our files look better
+
+--we use a .env package, instal it
+*******npm i dotenv*********

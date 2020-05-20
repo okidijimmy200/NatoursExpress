@@ -8,6 +8,37 @@ const tours = JSON.parse(
 );
 
 
+// param middleware for checkID
+exports.checkID = (req, res, next, val) => {
+    
+// incase one sends for id of 2 items yet specified one, we use id.length
+    // if (!tour) ---one way of checking tours
+     if (req.params.id * 1 > tours.length){
+        console.log(`Tour id is: ${val}`);
+        return res.status(404).json({
+            status:'fail',
+            message:'Invalid ID'
+        });
+    }
+    // call the middleware
+    next()
+}
+
+// middleware for checking the body Checkbody
+exports.checkBody = (req, res, next) => {
+    
+    // check incase there is no body or price
+         if (!req.body.name || !req.body.price){
+            
+            return res.status(400).json({
+                status:'fail',
+                message:'Missing name or Price'
+            });
+        }
+        // call the middleware
+        next();
+    }
+
 // creating a new function for tours
 exports.getAllTours =  (req, res) => {
     // checking out request tours middleware
@@ -37,14 +68,6 @@ exports.getTour =  (req, res) => {
     // getting the tours with the id
     const tour = tours.find(el => el.id === id)
 
-// incase one sends for id of 2 items yet specified one, we use id.length
-    // if (id > tours.length) ---one way of checking tours
-    if (!tour) {
-        return res.status(404).json({
-            status:'fail',
-            message:'Invalid ID'
-        });
-    }
 
     // send back all the tours
     res.status(200).json({
@@ -79,12 +102,7 @@ exports.createTour =  (req, res) => {
 // update tour function
 exports.updateTour = (req, res) => {
     // incase the id is valid
-    if (req.params.id * 1 > tours.length) {
-        return res.status(404).json({
-            status:'fail',
-            message:'Invalid ID'
-        });
-    }
+    // use the param middleware
     res.status(200).json({
         status: 'success',
         data: {
@@ -96,12 +114,7 @@ exports.updateTour = (req, res) => {
 // delete tour function
 exports.deleteTour = (req, res) => {
     // incase the id is valid
-    if (req.params.id * 1 > tours.length) {
-        return res.status(404).json({
-            status:'fail',
-            message:'Invalid ID'
-        });
-    }
+    // use the param middleware
     // 204--means no content so we sent data as null
     res.status(204).json({
         status: 'success',

@@ -32,6 +32,8 @@ app.use((req, res, next)  => {
     next();
 })
 
+// how to serve static files(this is used for non API formats)
+app.use(express.static(`${__dirname}/public`))
 
 // using middleware to connect our routes
 // (mounting a new router on a route)
