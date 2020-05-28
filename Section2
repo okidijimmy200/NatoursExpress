@@ -1,0 +1,123 @@
+MONGODB
+Lecture 1:
+what is MONGODB
+-This is a noSQL database
+-we have relational databases
+
+--each database in MongoBD contains one or more collections(tables)
+-each tables also contains one or more data strucutres called documents
+-documents is a row in tables
+-each document contains a ro abt one entity eg one blog, one user, one revie
+-the colection contains all these like a users collection, a review colection
+
+MongoBD is a document database with the scalability and flexibility that you 
+want with the querying and indexing tht you need
+
+KEY FEATURES OF MONGODB
+-Document Based: stores data in documents(no SQL)
+-Scalable: very easy to distribute data across multiple machines as your users and
+amount of data grows
+-Flexibility: no document data schema required, so each document can have different types and
+number of fields
+-Performant: Embedded data models, indexing, sharing,  flexible document, native duplication
+-free and open source database
+
+DOCUMENTS, BSON AND EMBEDDING
+-Mongo db uses a data strucutre similar to json for data storage called BSON
+-BSON is different from json bse its typed ie it has booleans, numbers, strings
+
+--MongoBD has flexible fields and embedded documents wch is not available in relational dbs
+
+
+Lecture 2:
+Installing MongoBD on Windows:
+-creating an env path
+
+Lecture 3:
+creating a Local Database:
+-to create a shell, we type mongo in cmd
+--create a db and switch to it
+**************>use natours-test*****
+
+--we have documents inside colection
+db--current database
+tours--collection
+**************>db.tours.insertOne({ name: "The forest Hiker", "price": 297, "rating": 4.7 })
+-we created the first database
+-to copy to mogodb, use right click
+
+to find a particular
+**************>db.tours.find()******************
+
+show db shows us all the dbs we have
+**************>show dbs******************
+
+show collections
+**************show collections*************
+
+to exit
+**************exit************************
+
+Lecture 4:
+CRUD creating Documents
+-creating new document
+**creating 2 collections at the same time
+**************db.tours.inserMany([{ name: "the sea explorer", "price":476, "rating": 4.8},{name: "the snow adventurer", "price":977, "rating":4.9, difficulty:"easy"}])
+
+to check out the collections
+**************db.tours.find()************************
+
+Lecture 5:
+CRUD Querying(Reading) Documents
+-searching for a tour we already know
+*************db.tours.find({name: "The forest Hiker"})******
+
+-searching according to difficulty
+*************db.tours.find({"difficulty": "easy"})*****
+ 
+-searching for tours with price below 200
+NB: lte ---less than or equal to
+************db.tours.find( {price: {$lte: 500} })*****
+
+-search for documents with price less than o equal 500 and also rating greater o equal to 4.8
+le---less than
+gte--greater or equal
+*****db.tours.find({price: {$lt: 500}, rating : {$gte: 4.8}})********
+
+-searching document where either of the above is true
+*****db.tours.find({ $or: [{price: {$lt: 500}}, {rating:{$gte: 4.8}}]})****
+
+incase we want the name to appear in the output
+*****db.tours.find({ $or: [{price: {$lt: 500}}, {rating:{$gte: 4.8}}]}, {name: 1})***
+
+Lecture 6:
+CRUD Updating Document
+*****db.tours.updateOne({name: "the snow adventurer"}, {$set: {price:597}})****
+-if our document is to update many, we shd use update many not update one
+
+--to update the tour to premium, we shd have a rating greater o equal to 4.8 and price greater thn 500
+****db.tours.updateMany({ price: {$gt: 500}, rating: {$gte: 4.8} }, {$set: {premium: true}})
+
+to perform replace
+***db.tours.replace()
+
+Lecture 7:
+CRUD Deleting documents
+-we cld delete one or multiple documents
+-delete all tours with a rating less thn 4.8
+*****db.tours.deleteMany({rating: {$lt: 4.8}})****
+
+--to delete all
+***db.tours.deleteMany({})
+
+Lecture 8:
+Using Compass App for CRUD Operations
+-GUI interface
+
+Lecture 9:
+Creating a Hosted Database with Atlas
+-we will use a remote database hosted on atlas
+
+Lecture 9:
+Connecting to our hosted database
+-open connect assistant

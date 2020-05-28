@@ -1,0 +1,27 @@
+USING MONGODB WITH MONGOOSE
+LECTURE 1:
+Connecting our database the express
+-to access our mongodb database, we need a mongodb driver
+-we will use mongoose
+
+************npm install mongoose********
+
+--incase the remote db fails, try changing the ip address connection
+-env file works fine
+
+--move to collection in mongodb atlas, create a new cluster collection
+
+--on connect to cluster, click connect your application and get your connection string
+-we connect to natours database in cluster 0
+-we also create a variable for connection to local database
+
+--this connects to the remote server
+-we can now delete the tours collection to avoid inteference
+
+LECTURE 2:
+What is mongoose:
+this is an object data modeling library for mongodb and nodejs providing a higher level of abstraction
+-mongoose gives us alot of functionality outside the box wch is necessary for fasterdevelopment
+-it provides us with a schema to model data and relationships easy validtaion, simple query API, middleware
+-mongoose schema: where we model our data by describing the structure of data, default values and validation
+-mongoose model:a wrapper for schema, providing an interface to the database for CRUD operations

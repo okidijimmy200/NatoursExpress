@@ -240,3 +240,17 @@ wch sets the node env to development
 
 --we use a .env package, instal it
 *******npm i dotenv*********
+
+
+Lecture 18:
+Setting up ES lint in vs code
+-ES lint is a program tht scans our code and gets bad programming
+-we can modify it to our liking
+
+---install es lint in vs code
+--then we install es lint in prettier
+--es lint config prettier --for disabling fromating es lint
+--eslint-plugin-prettier---shows formstting errors as we type
+--js style guide eslint-config--airbnb
+--eslint-plugin-node to add specific eslint rules  
+******npm i eslint prettier eslint-config-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev******
