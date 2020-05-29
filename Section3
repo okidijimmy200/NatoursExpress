@@ -25,3 +25,40 @@ this is an object data modeling library for mongodb and nodejs providing a highe
 -it provides us with a schema to model data and relationships easy validtaion, simple query API, middleware
 -mongoose schema: where we model our data by describing the structure of data, default values and validation
 -mongoose model:a wrapper for schema, providing an interface to the database for CRUD operations
+
+LECTURE 3:
+Creating a simple tour model:
+-creating a simple schema for our app in server
+-model is a blueprint to create classes
+-we use a mongoose model to perform a CRUD operation
+
+LECTURE 4:
+Creating Document and testing the Model:
+-we create a document and we test whether it works using both the remote and the local database
+
+LECTURE 5:
+Intro intii Back end Architecture MVC, logic,and more
+-how do we design our code Architecture
+
+MODEL(Business Loic)  ----------> VIEW(presentational Logic) -----------
+ |                                  |
+--------------CONTROLLER (Application)<----------    
+
+CONTROLLER: this handles app req, interact with models and send back data
+
+VIEW: this is useful for GUI app
+-this handles templates we wll use
+
+
+APPLICATION LOGIC                   VS        BUSINESS LOGIC
+-code concerned abt                            -sloves business problems
+implementing                                    -invloved in creating new tours, users
+-manage requests and responses                  -validating user input
+-more technical aspects                         -checking if password is correct
+-bridge btn mooal and view layers
+
+LECTURE 6:
+Refactoring for MVC
+-we create a model folder
+
+

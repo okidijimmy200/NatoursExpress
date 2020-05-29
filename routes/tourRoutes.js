@@ -8,7 +8,7 @@ const router = express.Router()
 
 // using param routes
 // val is the value of parameter in question
-router.param('id', tourController.checkID)
+// router.param('id', tourController.checkID)
 
 // specifying the route we want
 router
