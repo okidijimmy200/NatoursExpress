@@ -10,45 +10,62 @@ const Tour = require('../models/tourModel ')
 // );
 
 
-
-// middleware for checking the body Checkbody
-exports.checkBody = (req, res, next) => {
-    
-    // check incase there is no body or price
-         if (!req.body.name || !req.body.price){
-            
-            return res.status(400).json({
-                status:'fail',
-                message:'Missing name or Price'
-            });
-        }
-        // call the middleware
-        next();
-    }
-
 // creating a new function for tours
-exports.getAllTours =  (req, res) => {
-    // checking out request tours middleware
-    console.log(req.requestTime)
+exports.getAllTours = async (req, res) => {
+
+    try {
+          // checking out request tours middleware
+    // console.log(req.requestTime)
+    // --reading data from documents
+    const tours = await Tour.find();
     
     // send back all the tours
     res.status(200).json({
         status: 'success',
         // sending requestTime to tour
-        requestedAt: req.requestTime,
+        // requestedAt: req.requestTime,
         // to have results of array(this shows us the number of items available)
-        // results: tours.length,
-        // data:{
-        //     // this contains the response tht we want to send
-        //     tours
-        // }
-    })
+        results: tours.length,
+        data:{
+            // this contains the response tht we want to send
+            tours
+        }
+    })    
+    }
+    catch(err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+  
     
 }
 // creating function for getTour
-exports.getTour =  (req, res) => {
+exports.getTour =  async (req, res) => {
+    try {
+       const tour = await Tour.findById(req.params.id)
+    //    --similar to
+    // Tour.findOne({_id: req.params.id})
+
+         // send back all the tours
+    res.status(200).json({
+        status: 'success',
+        data:{
+            // this contains the response tht we want to send
+            tour
+        }
+    })
+    
+    }
+    catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        })
+    }
     // request params is where all the variables of the parameter are stored
-    console.log(req.params);
+    // console.log(req.params);
     // converting string of id into numbers(pure JS)
     const id = req.params.id * 1;
     
@@ -56,26 +73,30 @@ exports.getTour =  (req, res) => {
     // const tour = tours.find(el => el.id === id)
 
 
-    // // send back all the tours
-    // res.status(200).json({
-    //     status: 'success',
-    //     data:{
-    //         // this contains the response tht we want to send
-    //         tour
-    //     }
-    // })
-    
+  
 }
 // function for creating a request
-exports.createTour =  (req, res) => {
+exports.createTour = async (req, res) => {
+    // to catch errors
+    try {
+          // creating a tour with data from body
+    const newTour = await Tour.create(req.body);
+
     // when file is written, 201 stands for created
     res.status(201).json({
         status: 'success',
-        // data: {
-        //     tour: newTour
-        // }
+        data: {
+            tour: newTour
+        }
     })
-    
+    } catch (err) {
+        // when an error happens
+        res.status(400).json({
+            status: 'fail',
+            message: err
+        })
+    }
+ 
 }
 // update tour function
 exports.updateTour = (req, res) => {

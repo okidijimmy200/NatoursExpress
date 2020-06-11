@@ -61,4 +61,24 @@ LECTURE 6:
 Refactoring for MVC
 -we create a model folder
 
+LECTURE 7:
+ANOTHER WAY OF CREATING DOCUMENTS
+-we will create abetter way of building API using database
+-we start with the createtour function
+-we define the engine in package.json to determine the version of node we are using
+
+
+--with mongodb, everything that is not in our database schema like difficluty
+is jst ignored instead of creating an error
+
+--if we send it again in postman, it gives us an error
+
+LECTURE 8:
+READING DOCUMENTS
+-tour.findbyId -- is used to find a particualr item by id
+
+LECTURE 9:
+Updating DOCUMENTS
+-
+
 

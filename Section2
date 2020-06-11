@@ -121,3 +121,7 @@ Creating a Hosted Database with Atlas
 Lecture 9:
 Connecting to our hosted database
 -open connect assistant
+
+--to open up mongodb, we use
+
+***********mongod************

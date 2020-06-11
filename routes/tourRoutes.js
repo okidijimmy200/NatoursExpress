@@ -15,7 +15,7 @@ router
     .route('/')
     .get(tourController.getAllTours)
     // implementing multiple requests on the tour
-    .post(tourController.checkBody,tourController.createTour);
+    .post(tourController.createTour);
 
 // other routes
 // to implement the tour controller
