@@ -79,6 +79,19 @@ READING DOCUMENTS
 
 LECTURE 9:
 Updating DOCUMENTS
--
+-we can check on the mongodb query to see how we implement them in the documentation
+-we have options ie new, upsert, runvalidators
+
+-we have many methods in mongoose
+
+LECTURE 10:
+Deleting DOCUMENTS
+-performed the delete operation 
+
+
+LECTURE 11:
+Modelling the tour
+-we model the tours to make it more complete
+
 
 

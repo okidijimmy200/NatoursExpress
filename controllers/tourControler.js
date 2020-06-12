@@ -99,24 +99,52 @@ exports.createTour = async (req, res) => {
  
 }
 // update tour function
-exports.updateTour = (req, res) => {
-    // incase the id is valid
+exports.updateTour = async (req, res) => {
+    try {
+        // querying document we want to update based on id
+        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        })
+         // incase the id is valid
     // use the param middleware
     res.status(200).json({
         status: 'success',
         data: {
             // we will send an updated string for tour
-            tour: '<Updated Tour...>'
+            tour
         }
     })
+    }
+    catch (err) {
+          // when an error happens
+          res.status(400).json({
+            status: 'fail',
+            message: err
+        })
+    }
+   
 }
 // delete tour function
-exports.deleteTour = (req, res) => {
-    // incase the id is valid
+exports.deleteTour = async (req, res) => {
+    try {
+        // in restapi, no data is sent to client wen there is a delete, so no need for variable
+        await Tour.findByIdAndDelete(req.params.id)
+        // incase the id is valid
     // use the param middleware
     // 204--means no content so we sent data as null
     res.status(204).json({
         status: 'success',
         data: null
     })
+    }
+    catch(err) {
+          // when an error happens
+          res.status(400).json({
+            status: 'fail',
+            message: err
+        })
+    }
+
+    
 }
