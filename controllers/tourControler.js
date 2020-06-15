@@ -2,6 +2,7 @@ const express = require('express')
 
 // importing the tour model
 const Tour = require('../models/tourModel ')
+const { query } = require('express')
 
 // reading data from tours
 // we use JSON.parse to pass an array of JS objects
@@ -14,11 +15,48 @@ const Tour = require('../models/tourModel ')
 exports.getAllTours = async (req, res) => {
 
     try {
+        console.log(req.query)
+        // BUILD THE QUERY
+        // 1) Filtering
+        const queryObj= {...req.query}
+        // array of fields to exclude
+        const excludedFields= ['page', 'sort', 'limit', 'fields']
+        // --removing fields from queryObj
+        excludedFields.forEach(el => delete queryObj[el])
+
+        
           // checking out request tours middleware
     // console.log(req.requestTime)
     // --reading data from documents
-    const tours = await Tour.find();
+    // --querying using filtering
+
+    // 2) Advanced filtering
     
+        // -----implementing the advanced query
+        // {difficulty: 'easy', duration: {$gte: 5}}
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+        console.log(JSON.parse(queryStr))
+        const query = await Tour.find(JSON.parse(queryStr));
+        //EXEUTE THE QUERY
+        const tours = await query
+
+       
+    // const tours = await Tour.find({
+    //     duration: 5,
+    //     difficulty: 'easy'
+    // });
+    // --second way of writing query
+    // const tours = await Tour.find()
+    // .where('duration')
+    // .equals(5)
+    // .where('difficulty')
+    // .equals('easy');
+
+
+
+
+    //SEND RESPONSE
     // send back all the tours
     res.status(200).json({
         status: 'success',

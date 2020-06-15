@@ -93,5 +93,32 @@ LECTURE 11:
 Modelling the tour
 -we model the tours to make it more complete
 
+LECTURE 12:
+Making the API better filtering
+-we will make common api features to make api easy to use
+-we wil start with filtering using a query string
+-with the query selector, we begin with a ? filter followed by as many key value pairs as possible in postman
+ie 127.0.0.1:8080/api/v1/tours?duration=5&difficulty=easy
+-we perform the query selection on the route we want to get all the tours
+
+there are 2 ways of writing queries in mongoose
+
+1: filtering objects
+2: mongoose method
+we chain special monngoose method to perfrom task
+-in the mongoose, we have lt, lte, and many other situations
+-we can see the params in postman
+
+-how queries work in mongoose
+
+LECTURE 13:
+Making the API Better Advanced filtering
+-improving on the filter with complex queries
+-how to implement the greater than, greater than or equal to,less than or less than or equal to
+-how the query looks like
+
+--on postman, we write the 127.0.0.1:8080/api/v1/tours?duration{gte}=4&page=2 with gte in the middle
+
+
 
 
