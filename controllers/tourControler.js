@@ -36,9 +36,23 @@ exports.getAllTours = async (req, res) => {
         // {difficulty: 'easy', duration: {$gte: 5}}
         let queryStr = JSON.stringify(queryObj);
         queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-        console.log(JSON.parse(queryStr))
-        const query = await Tour.find(JSON.parse(queryStr));
-        //EXEUTE THE QUERY
+        let query =  Tour.find(JSON.parse(queryStr));
+       
+
+    // 3) SORTING
+    if(req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ')
+        query = query.sort(req.query.sort)
+        // --sorting according to 2 different fields
+        // sort('price ratingsAverage')
+    }
+    // --setting a default 
+    else {
+        // --sorting according to created last
+        query = query.sort('-createdAt')
+    }
+     //EXEUTE THE QUERY
+        // --if we use await, thereis no way to perform sorting or pagination
         const tours = await query
 
        

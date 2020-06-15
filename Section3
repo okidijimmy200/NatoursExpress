@@ -119,6 +119,23 @@ Making the API Better Advanced filtering
 
 --on postman, we write the 127.0.0.1:8080/api/v1/tours?duration{gte}=4&page=2 with gte in the middle
 
+LECTURE 14:
+Making the API better sorting;
+-to enable user sort based on a certain fields
+ie by price
+127.0.0.1:8080/api/v1/tours?sort=price helps us sort according to price in ascending order
+-we can set them in descsending order byplacing a minus
+127.0.0.1:8080/api/v1/tours?sort=-price
+-how are results with the same price ordered within them
+-we use a second tie
+127.0.0.1:8080/api/v1/tours?sort=-price,ratingAverage
+
+LECTURE 15:
+Making the API Better Limiting fields
+-this is to enable clients choose which fields they want to get back in the responses
+-
+
+
 
 
 
