@@ -51,6 +51,18 @@ exports.getAllTours = async (req, res) => {
         // --sorting according to created last
         query = query.sort('-createdAt')
     }
+
+    // 4) FIeld limiting
+    if (req.query.fields) {
+        const fields = req.query.fields.split(',').join(' ')
+        // --this expects string like name, duration and price and will return only that
+        query = query.select('name duration price')
+    }
+    // --setting the default
+    else {
+        // --excluding items we dont want
+        query = query.select('-__v')
+    }
      //EXEUTE THE QUERY
         // --if we use await, thereis no way to perform sorting or pagination
         const tours = await query

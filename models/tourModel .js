@@ -55,7 +55,9 @@ const tourSchema = new mongoose.Schema({
     // --timestamp wch shd be made automatically,
     createdAt: {
         type: Date,
-        default:Date.now()
+        default:Date.now(),
+        // to hide the createdAt
+        select: false
     },
     startDates: [Date]
 

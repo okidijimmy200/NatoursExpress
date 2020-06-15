@@ -133,7 +133,10 @@ ie by price
 LECTURE 15:
 Making the API Better Limiting fields
 -this is to enable clients choose which fields they want to get back in the responses
--
+-we will specify a field called fields in postman ie name, duration, difficulty and price
+-this returns to us the fields we want to show the user
+-if we want to exclude the name, duration, we place - at the start of it
+-we can exclude fields from the schema ie when the tour was created
 
 
 
