@@ -1,3 +1,5 @@
+
+
 const express = require('express')
 
 // importing tour controllers
@@ -9,6 +11,8 @@ const router = express.Router()
 // using param routes
 // val is the value of parameter in question
 // router.param('id', tourController.checkID)
+
+router.route('/top-5-cheap').get(tourController.aliasTopTours, tourController.getAllTours)
 
 // specifying the route we want
 router
@@ -26,3 +30,4 @@ router
     .delete(tourController.deleteTour)
 
 module.exports = router
+

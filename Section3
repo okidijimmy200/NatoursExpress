@@ -138,6 +138,24 @@ Making the API Better Limiting fields
 -if we want to exclude the name, duration, we place - at the start of it
 -we can exclude fields from the schema ie when the tour was created
 
+LECTURE 16:
+Making the API Better Pagination
+-to enable user select a certain page of result incase we have a lot of pages
+ie 1000 documents and 100 for each page meaning we have 10 pages
+-there will be a page field and limit fields
+ie 127.0.0.1:8080/api/v1/tours?page=2&limit=10
+-skip shows us the amount of result skipped b4 querying data
+page=2&limit=10 means 1-10 results are on page 1 and 11-20 are on page 2
+-so we want to skip 10 results b4 we start querying
+--since we have few items per page, we will use page=1 and limit=3
+--to handle cases where user has requested for page tht doesnot exist, we throw a new error bse we are already in a try block
+
+LECTURE 17:
+Making the API Better Aliasing
+-creating an alias route to a request tht might be very popular and requested all the time
+127.0.0.1:8080/api/v1/tours?limit=5&sort=-ratingsAverage,price
+-how do we handle a request done all the time
+
 
 
 

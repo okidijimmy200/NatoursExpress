@@ -1,0 +1,5 @@
+Lecture 1:
+Refactoring API Features
+-how to refactor API features we have implemented
+-we will create a class for each of these API
+-we will create a resuable module
