@@ -16,7 +16,8 @@ router.route('/top-5-cheap').get(tourController.aliasTopTours, tourController.ge
 
 // --router for stats
 router.route('/tour-stats').get(tourController.getTourStats)
-
+// --router to get busiest month,we need to pass the year
+router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan)
 // specifying the route we want
 router
     .route('/')

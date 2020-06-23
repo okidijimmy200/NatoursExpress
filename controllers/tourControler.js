@@ -224,3 +224,75 @@ exports.getTourStats = async (req, res) => {
         }) 
     }
 }
+
+
+//////////////IMPLEMENTING BUSINESS PLAN TO CALCULLATE BUSSIEST MONTH
+exports.getMonthlyPlan = async( req, res) => {
+    try {
+    //    --define the year
+    const year = req.params.year * 1 //2021
+
+    // --create the plan variable
+    const plan = await Tour.aggregate([
+        {
+            // --$unwind deconstructs an array field from input documents and output one document for each element of the array
+            $unwind:'$startDates'
+        },
+        {
+            // --to select documents
+            $match:{
+                // --date shd be greater thn 1st jan 2021 < 31st dec 2021
+                startDates:{
+                    $gte: new Date(`${year}-01-01`),
+                    $lte: new Date(`${year}-12-31`)
+                }
+            },
+            
+        },
+        {
+            $group: {
+                _id:{$month: '$startDates'},
+                // --how many tours start in tht month
+                numTourStarts: {$sum:1},
+                tours: { $push: '$name' }
+            }
+        },
+        {
+            $addFields: {
+                month: '$_id'
+            }
+        },
+        {
+            $project:{
+                // --we make the id not show up
+                _id: 0
+            }
+        },
+        {
+            $sort: { numTourStarts: -1 }
+        },
+        {
+            //--to get 6 outputs
+            $limit: 6 
+        }
+    ])
+
+       // use the param middleware
+       res.status(200).json({
+        status: 'success',
+        data: {
+            // we will send an updated string for tour
+           plan
+        }
+    })
+
+        
+    }
+    catch(err) {
+         // when an error happens
+         res.status(400).json({
+            status: 'fail',
+            message: err
+        })
+    }
+}
