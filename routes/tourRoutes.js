@@ -3,7 +3,7 @@
 const express = require('express')
 
 // importing tour controllers
-const tourController = require('./../controllers/tourControler')
+const tourController = require('../controllers/tourControler')
 
 // using multiple routes
 const router = express.Router()
@@ -13,6 +13,9 @@ const router = express.Router()
 // router.param('id', tourController.checkID)
 
 router.route('/top-5-cheap').get(tourController.aliasTopTours, tourController.getAllTours)
+
+// --router for stats
+router.route('/tour-stats').get(tourController.getTourStats)
 
 // specifying the route we want
 router

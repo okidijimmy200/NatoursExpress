@@ -7,3 +7,11 @@ Refactoring API Features
 
 Lecture 2:
 Aggregation Pipeline Matching and Grouping
+-Aggregation and pipeline are very important mongodb framework for data aggregation
+-we define a pipeline where all the documents from a certain collection are processed step by step inorder to transform
+them to aggregated results
+-we can use this to calculate averages
+
+Lecture 3:
+Aggregation pipeline Unwinding and Projecting
+-
