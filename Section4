@@ -22,3 +22,43 @@ Aggregation pipeline Unwinding and Projecting
 -we use aggregation pipeline to determine the busiest months
 127.0.0.1:8080/api/v1/tours/monthly-plan/2021
 -we break the tour startDates tht contain 2021
+
+Lecture 4:
+Virtual Properties
+-go to tourModel
+-virtual properties are fields we can define on our schema bt will not be persisted
+-eg a conversion from miles to km and vise versa
+-virtuaal properties cannot be used in the query bse they r not in tht database
+
+Lecture 5:
+Document Middleware:
+-mongoose has concept of middleware
+-we can make something when data is saved to documents
+-mongoose middleware is called preand post hooks bse we can define functions to run before and after running
+certain events
+
+Types of middleware in mongoose
+--documents
+--query
+--aggregate
+--model middleware
+
+**we will talk abt document middleware wch acts on the currrent processed document
+-we create a new tour of save or create to trigger command
+
+-we will create a slug for our document
+A slug is a string we put in the uRL
+--***********npm i slugify*********
+
+Lecture 6:
+Querying Middleware
+-this is a middleware tht allows us run function b4 or after a certain function is executed
+-the filter we created doesnot work when we use findbyid
+-wch is find1
+-we use a reqular exp to sortit out for all commands tht start with find
+
+Lecture 7:
+Aggregation Middleware:
+-this allows us to add hooks before or after an aggregation occurs
+--in aggregation, secrettours are still being used
+-to filter out the secretTOurs, we add a match at the beginning of the pipeline array
