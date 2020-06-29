@@ -3,6 +3,12 @@ const express = require('express')
 // importing morgan
 const morgan = require('morgan')
 
+// --import apperror
+const AppError = require('./utils/appError')
+
+// --import global error handler
+const globalErrorHandler= require('./controllers/errorController')
+
 // importing the tour router
 const tourRouter = require('./routes/tourRoutes')
 // importing userRouter
@@ -44,32 +50,25 @@ app.use('/api/v1/tours',tourRouter );
 // --router wch is implemented only if other routes have not bn implemented
 // --NB: this middleware router shd be at the bottom of the other routers
 app.all('*', (req, res, next) => {
+    //--METHOD 1
     // // send back response in json format
     // res.status(404).json({
     //     status: 'fail',
     //     message:  `can't find ${req.originalUrl} on the server`
     // })
-
+    // METHOD 2
     // --create an error
-    const err = new Error(`can't find ${req.originalUrl} on the server`)
-    err.status = 'fail';
-    err.statusCode = 404;
+    // const err = new Error(`can't find ${req.originalUrl} on the server`)
+    // err.status = 'fail';
+    // err.statusCode = 404;
 
     // --moving middleware to next step
-    next(err)
+    next(new AppError(`can't find ${req.originalUrl} on the server`, 400))
 })
 
 // --building middleware func to solve operational errors
 // --error handling so 1st arg is err
-app.use((err, req, res, next) => {
-    // --reading status code from error for custom code
-    err.statusCode = err.statusCode || 500;
-    err.status = err.status || 'error' // if error is defined
-    res.status(err.statusCode).json({
-        status: err.status,
-        message: err.message //passed on from const err above 
-    })
-})
+app.use(globalErrorHandler)
 
 // exporting our app to be used by server
 module.exports = app;

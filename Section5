@@ -57,3 +57,8 @@ LECTURE 4:
 Implementing a global error handling middleware
 -how to write middleware func to handle operational errors
 
+LECTURE 5:
+Better Error and refactoring
+-create a new file in utils
+-create a new errorController fie wch we export to the appjs file
+
