@@ -1,0 +1,59 @@
+ERROR HANDLING WITH EXPRESS
+LECTURE 1:
+Debugging NodeJs with ndb
+-we cldwe vs code for Debugging or ndb by google
+ndb----node debugger
+*********npm i ndb --global************
+or
+*********npm i ndb --save-dev**********
+
+--we then add a script in our package.json called debug
+--so we run ****npm run debug****
+--it installs and opens up a chromium web browser for you wch is a node debugger
+--we can edit our files in our debugger and it updates the original code
+
+NB: after performing any action on chromium, perfomr the save button
+
+
+Break points
+these r fundamental aspects of error HANDLING
+-this is where the code will stop running and we will see our variables
+-we create a breakpoint by clicking a number on the code thn right click --> run the script
+-this opens up another serverjs showing us all the code tht has executed above the breakpoint
+and we can check the variables like port set to 8080
+-we can also see the results on the right side
+--this also gives us access to all the functions used ie module, require, dirname, dirfile
+--we also have the app variable wch contains the route
+--it contains stack wch is the middleware stack we have in our application
+
+--we do also have global variables where we have process variable
+-we have process.env where all ur env variables r stored ie password, database string
+
+-weh we are done, we can click the run button at the top right side to complete our execution and since there
+is no error, it will complete well.
+
+
+LECTURE 2:
+Handling Unhandled Routes
+-we implement error handling for routes that are not dfined in the app.js file
+-the route shd be below other route to avoid it running fast
+
+LECTURE 3:
+An overvire of Error Handling:
+-types of errors
+Operational Errors                             Program errors
+-problems we can preixt will happpen            bugs we developers introduce into our code, difficut to handle
+at some pt, so we prepare 4 them                -reading properties on undefined
+-inavlid path access                            -passing a number where an object is expected
+-invalid user input                             -await without async
+-failed to connect to serverjs                  -using req.query instead of req.body
+-failed to connect to db
+-request timeout
+
+when dealing with errors in express, we mean operational errors wch are easy to catch and handle with our app
+-we write a global error handling middleware to catch differnet errors
+
+LECTURE 4:
+Implementing a global error handling middleware
+-how to write middleware func to handle operational errors
+

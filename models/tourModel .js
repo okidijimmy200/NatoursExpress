@@ -3,6 +3,10 @@ const mongoose = require('mongoose')
 
 // --import slugify
 const slugify = require('slugify')
+// --import validator
+const validator = require('validator')
+
+
 // creating a schema for our tour
 const tourSchema = new mongoose.Schema({
     name: {
@@ -10,7 +14,13 @@ const tourSchema = new mongoose.Schema({
         type:String,
         required:[true, 'A tour must have a name'],
         unique: true,
-        trim: true
+        trim: true,
+        // --we have validators ie required, trim
+        // --other validators
+        maxlength:[40, 'A tour name must have less or equal to 40 characters'],
+        minlength:[10, 'A tour name must have more or equal to 10 characters'],
+        // --implementing the custom validator
+        // validate: [validator.isAlpha, 'Tour name must only contain characters']
     }, 
     slug: String,
     duration: {
@@ -24,11 +34,19 @@ const tourSchema = new mongoose.Schema({
     },
     difficulty: {
         type: String,
-        required: [true, 'A tour must have a difficulty']
+        required: [true, 'A tour must have a difficulty'],
+        // --validators for difficulty
+        enum: {
+            values:['easy','medium', 'difficult'],
+            message: 'difficulty is either easy, medum or difficult'
+        }
     },
     ratingsAverage: {
         type: Number,
-        default: 4.5
+        default: 4.5,
+        // --placing validators on rating
+        min: [1, 'Rating must be above 1,0'],
+        max: [5, 'Rating must be below 5.0'],
     },
     ratingsQuantity: {
         type: Number,
@@ -38,7 +56,21 @@ const tourSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'tour must have a price']
     } ,
-    priceDiscount: Number,
+
+    // --creating our custom validators
+    priceDiscount:{
+        type:Number,
+        // val--price tht the user input
+        validate:{
+            validator:function(val){
+                return val < this.price;  // check if price is less thn discount ie 100 < 200, true 250< 200 false
+                
+            },
+            // -setting custom message, value is passed in dynamically with mongoose
+            message:'Discount price ({VALUE})should be below regular price'
+            // this function doesnot work on an update
+        }
+    } ,
     summary: {
         type: String,
         // --trim helps us cut the unnecessary white space we have

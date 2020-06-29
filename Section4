@@ -62,3 +62,21 @@ Aggregation Middleware:
 -this allows us to add hooks before or after an aggregation occurs
 --in aggregation, secrettours are still being used
 -to filter out the secretTOurs, we add a match at the beginning of the pipeline array
+
+Lecture 8:
+Data validation built-in validators
+-validation is checking if the entered values are in the ryt format for each fied in the documnt schema and tht 
+all tht data has been entered.
+-Sanitization is to make sue tht imput data is clean and not malicious code
+-we remove unwanted characters from the input data
+__this is a very important step, and so we need to sanitize tht data coming from the user
+
+Lecture 9:
+Data validation Custom validators
+-sometimes builtin validators are not enough so we build our own validators
+-validators are basically functions wch return true or false, if it returns false, then there is an error
+-if true, validation is correct
+-we will try to create custom validators to check if the price discount is lower thn the price itself
+-we also have npm packages for validators tht help us perform custom validation
+ie validators github
+*************npm i validator************
