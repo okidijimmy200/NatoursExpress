@@ -62,3 +62,33 @@ Better Error and refactoring
 -create a new file in utils
 -create a new errorController fie wch we export to the appjs file
 
+LECTURE 6:
+Catching Errorss in Async functions
+-we have try catch blocks in our async functions.
+-we will take the async function with try and catch and place it into a new function
+-we can also perform catchasyn in the toutController
+-catchAsync is used inplace of try, catch
+
+LECTURE 7:
+Adding 404 Not Found Errors
+-add 404 errors to our tour handler functions
+-catchAsync is not very convient for routers
+-how do we code an error in a situation where someone has placed an invalide id
+-it now gives us no tour found with that id
+-catchAsyn shd only be placed where its needed to avoid cases of putting it in a synchronous code
+
+-
+
+LECTURE 8:
+ERROR DURING DEVELOPMENT VS PRODUCTION
+-Implementing logic to send differnet messages for prod or dev
+-in prod, we want to leak as little error about the program to the cliet as possible
+-we send a nice human friendly as possible
+-bt in dev, we neeed to have as much info as possible
+
+--all the errors we create our selves will be operational errors
+-we want to send these errors only to users in prod
+-for other prog error from 3rd party lib, we dont need to send it
+-so its important to distinguish btn errors in prod and development
+-
+

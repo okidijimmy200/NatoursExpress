@@ -4,7 +4,7 @@ class AppError extends Error {
         super(message);
         this.statusCode = statusCode;
         // -checking if status code is 400 or 500 using startswith
-        this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error'//will be fail if 400
+        this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';//will be fail if 400
         this.isOperational = true;
         // --stack trace---this shows us where the error occured
         Error.captureStackTrace(this, this.constructor)
@@ -12,3 +12,4 @@ class AppError extends Error {
 }
 
 module.exports = AppError
+

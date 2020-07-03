@@ -1,12 +1,16 @@
-const express = require('express')
+// const express = require('express')
 
 // --calling apifeatures
 const APIFeatures = require('../utils/apiFeatures')
 
 // importing the tour model
 const Tour = require('../models/tourModel ')
-const { query } = require('express')
+// const { query } = require('express')
+// --import catchAsync
+const catchAsync = require('../utils/catchAsync')
 
+// --importing apperror
+const AppError = require('../utils/appError')
 // reading data from tours
 // we use JSON.parse to pass an array of JS objects
 // const tours = JSON.parse(
@@ -22,9 +26,9 @@ exports.aliasTopTours = (req, res, next) => {
 
 
 // creating a new function for tours
-exports.getAllTours = async (req, res) => {
+exports.getAllTours = catchAsync(async (req, res, next) => {
 
-    try {
+   
         console.log(req.query)
    
      //EXEUTE THE QUERY
@@ -49,20 +53,20 @@ exports.getAllTours = async (req, res) => {
             tours
         }
     })    
-    }
-    catch(err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err
-        });
-    }
+   
   
     
-}
+})
 // creating function for getTour
-exports.getTour =  async (req, res) => {
-    try {
-       const tour = await Tour.findById(req.params.id)
+exports.getTour =  catchAsync(async (req, res, next) => {
+    const tour = await Tour.findById(req.params.id)
+
+    //    --implemet if no tour, create error
+    if(!tour) {
+        // --middeware to apperror
+        return next(new AppError('No tour found found with that ID', 404));
+    }
+   
     //    --similar to
     // Tour.findOne({_id: req.params.id})
 
@@ -74,51 +78,25 @@ exports.getTour =  async (req, res) => {
             tour
         }
     })
-    
-    }
-    catch (err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err
-        })
-    }
-    // request params is where all the variables of the parameter are stored
-    // console.log(req.params);
-    // converting string of id into numbers(pure JS)
-    const id = req.params.id * 1;
-    
-    // getting the tours with the id
-    // const tour = tours.find(el => el.id === id)
-
-
   
-}
-// function for creating a request
-exports.createTour = async (req, res) => {
-    // to catch errors
-    try {
-          // creating a tour with data from body
-    const newTour = await Tour.create(req.body);
+})
 
-    // when file is written, 201 stands for created
+
+// --the catch async function is passed into fn wch is the functin above
+exports.createTour = catchAsync(async (req, res, next) => {
+    
+    const newTour = await Tour.create(req.body);
+  
     res.status(201).json({
-        status: 'success',
-        data: {
-            tour: newTour
-        }
-    })
-    } catch (err) {
-        // when an error happens
-        res.status(400).json({
-            status: 'fail',
-            message: err
-        })
-    }
- 
-}
+      status: 'success',
+      data: {
+        tour: newTour
+      }
+    });
+  });
+
 // update tour function
-exports.updateTour = async (req, res) => {
-    try {
+exports.updateTour = catchAsync(async (req, res, next) => {
         // querying document we want to update based on id
         const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
@@ -133,19 +111,11 @@ exports.updateTour = async (req, res) => {
             tour
         }
     })
-    }
-    catch (err) {
-          // when an error happens
-          res.status(400).json({
-            status: 'fail',
-            message: err
-        })
-    }
+
    
-}
+})
 // delete tour function
-exports.deleteTour = async (req, res) => {
-    try {
+exports.deleteTour = catchAsync(async (req, res, next) => {
         // in restapi, no data is sent to client wen there is a delete, so no need for variable
         await Tour.findByIdAndDelete(req.params.id)
         // incase the id is valid
@@ -155,20 +125,12 @@ exports.deleteTour = async (req, res) => {
         status: 'success',
         data: null
     })
-    }
-    catch(err) {
-          // when an error happens
-          res.status(400).json({
-            status: 'fail',
-            message: err
-        })
-    }
 
     
-}
+})
 // --function to calculate statics for our tours
-exports.getTourStats = async (req, res) => {
-    try {
+exports.getTourStats = catchAsync(async (req, res, next) => {
+
         const stats = await Tour.aggregate([
             // --we have the stages the documents pass
             // --match: filter some documents
@@ -215,20 +177,13 @@ exports.getTourStats = async (req, res) => {
         }
     })
    
-    }
-    catch(err){
-         // when an error happens
-         res.status(400).json({
-            status: 'fail',
-            message: err
-        }) 
-    }
-}
+
+})
 
 
 //////////////IMPLEMENTING BUSINESS PLAN TO CALCULLATE BUSSIEST MONTH
-exports.getMonthlyPlan = async( req, res) => {
-    try {
+exports.getMonthlyPlan = catchAsync(async( req, res,next) => {
+
     //    --define the year
     const year = req.params.year * 1 //2021
 
@@ -287,12 +242,7 @@ exports.getMonthlyPlan = async( req, res) => {
     })
 
         
-    }
-    catch(err) {
-         // when an error happens
-         res.status(400).json({
-            status: 'fail',
-            message: err
-        })
-    }
-}
+
+})
+
+

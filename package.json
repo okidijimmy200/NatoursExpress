@@ -16,7 +16,7 @@
     "mongoose": "^5.9.16",
     "morgan": "^1.10.0",
     "slugify": "^1.4.2",
-    "validator": "^13.1.1"
+    "validator": "^10.8.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",

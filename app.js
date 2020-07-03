@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const AppError = require('./utils/appError')
 
 // --import global error handler
-const globalErrorHandler= require('./controllers/errorController')
+const globalErrorHandler = require('./controllers/errorController')
 
 // importing the tour router
 const tourRouter = require('./routes/tourRoutes')
@@ -17,7 +17,10 @@ const userRouter = require('./routes/userRoutes')
 const app = express();
 
 // using the middleware
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+  }
 
 // using middleware
 app.use(express.json())
@@ -31,6 +34,11 @@ app.use(express.json())
 //     next();
 // })
 
+
+
+// how to serve static files(this is used for non API formats)
+app.use(express.static(`${__dirname}/public`))
+
 // middleware to manipulate the requests
 app.use((req, res, next)  => {
     // adding current time to the request and onverting it to string
@@ -38,14 +46,13 @@ app.use((req, res, next)  => {
     next();
 })
 
-// how to serve static files(this is used for non API formats)
-app.use(express.static(`${__dirname}/public`))
-
+/////////////ROUTES//////
 // using middleware to connect our routes
 // (mounting a new router on a route)
-app.use('/api/v1/users', userRouter );
 // (mounting a new router on a route)
 app.use('/api/v1/tours',tourRouter );
+app.use('/api/v1/users', userRouter );
+
 
 // --router wch is implemented only if other routes have not bn implemented
 // --NB: this middleware router shd be at the bottom of the other routers
@@ -61,9 +68,10 @@ app.all('*', (req, res, next) => {
     // const err = new Error(`can't find ${req.originalUrl} on the server`)
     // err.status = 'fail';
     // err.statusCode = 404;
+    // next(err)
 
     // --moving middleware to next step
-    next(new AppError(`can't find ${req.originalUrl} on the server`, 400))
+    next(new AppError(`can't find ${req.originalUrl} on the server!`, 404))
 })
 
 // --building middleware func to solve operational errors
