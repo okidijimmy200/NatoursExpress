@@ -102,6 +102,13 @@ exports.updateTour = catchAsync(async (req, res, next) => {
             new: true,
             runValidators: true
         })
+
+        
+    //    --implemet if no tour, create error
+    if(!tour) {
+        // --middeware to apperror
+        return next(new AppError('No tour found found with that ID', 404));
+    }
          // incase the id is valid
     // use the param middleware
     res.status(200).json({
@@ -117,7 +124,14 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 // delete tour function
 exports.deleteTour = catchAsync(async (req, res, next) => {
         // in restapi, no data is sent to client wen there is a delete, so no need for variable
-        await Tour.findByIdAndDelete(req.params.id)
+     const tour =   await Tour.findByIdAndDelete(req.params.id)
+
+     
+    //    --implemet if no tour, create error
+    if(!tour) {
+        // --middeware to apperror
+        return next(new AppError('No tour found found with that ID', 404));
+    }
         // incase the id is valid
     // use the param middleware
     // 204--means no content so we sent data as null

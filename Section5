@@ -92,3 +92,23 @@ ERROR DURING DEVELOPMENT VS PRODUCTION
 -so its important to distinguish btn errors in prod and development
 -
 
+LECTURE 9:
+Handling Invalid Database Ids
+-there are 3 types of errors that might be creatd by mongoose tht we mark as operational errors
+-we need to send meaningful error messsages to clients 
+ie getting a tour with a wrong id
+-creating a tour with the same name
+-validation in update tour eg rating of 6 yet max rating is 5
+
+--there are certain errors(mongoose errors) like wrong id wch are 500 but are basically operational errors and need to
+be placed that way
+
+LECTURE 10:
+HANDLING DUPLICATE DATABASE FIELDS
+-Handling error that occurs when we try to handle duplciate fields
+-this is an error caused by the underlying mongodb driver
+-we can search google for reg exp match text between quotes
+
+LECTURE 11:
+Handling Mongoose Validation Errors
+-
