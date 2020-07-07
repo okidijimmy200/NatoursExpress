@@ -1,0 +1,6 @@
+AUTHENTICATION, AUTHORIZATION AND SECURITY
+Lecture 1:
+Modelling Users:
+-this is all about users singing up, logging in and accessing pages or routes
+that we grant them permission to do
+-so we implement the user model then create new users in our database
