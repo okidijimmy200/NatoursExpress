@@ -111,4 +111,22 @@ HANDLING DUPLICATE DATABASE FIELDS
 
 LECTURE 11:
 Handling Mongoose Validation Errors
--
+-handling errors tht occur when we have validation mistake
+
+LECTURE 12:
+Errors Outside Express Unhandled Rejections
+-there are errors tht occur outside express ie in our mongodb connection
+showing our database is down
+-how to deal with unhandled promise Rejections
+-wch means there is a promise tht has bn rejected some where
+
+-how to deal with unhandled promise rejections globally
+
+LECTURE 13:
+Catching Uncaught Execeptions
+-all errors tht occur in our synchrnous code bt not handled any where are called uncaought Execeptions
+eg console logging something we didnt define
+-we need to be able to restart our process in prod incase there is a server shutdown
+-its not recommended to use the unhandledRejection and uncaught error
+-the error handlers shd be at the top
+

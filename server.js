@@ -6,6 +6,16 @@ const dotenv = require('dotenv')
 // importing app.js
 const app = require('./app');
 
+
+// --unhandled exceptions
+process.on('uncaughtException', err => {
+    // shutting down our app
+   console.log('UNCAUGHT EXCEPTION! shutting down')
+   // --wen we have uncaught exception, the node exception is in unclean state
+   console.log(err.name, err.message)
+   process.exit(1);
+})
+
 // uing the dotenv variable
 dotenv.config({path: './config.env'})
 
@@ -41,7 +51,19 @@ console.log(process.env)
 
 // start up a server
 const port = 8080
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`App running on port ${port}...`)
 })
+
+// --handling unhandled promise rejections globally
+process.on('unhandledRejection', err => {
+    console.log(err.name,err.message)
+    // shutting down our app
+    console.log('UNHANDLED REJECTION! shutting down')
+    server.close(() => {
+        process.exit(1);
+    })
+    
+})
+
 
