@@ -3,9 +3,12 @@ const express = require('express')
 
 // importing user controllers
 const userController = require('./../controllers/userController')
-
+const authController = require('../controllers/authController')
 // user router
 const router = express.Router()
+
+// --we need to do auth wch makes user abit different
+router.post('/signup', authController.signup)
 
 // route for users
 router

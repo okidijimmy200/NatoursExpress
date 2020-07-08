@@ -4,3 +4,10 @@ Modelling Users:
 -this is all about users singing up, logging in and accessing pages or routes
 that we grant them permission to do
 -so we implement the user model then create new users in our database
+
+Lecture 2:
+Creting New User:
+-create new users based on our models
+-all funcs related to auth will be in authentication controller
+-in the postman, we implement the user/signup
+
