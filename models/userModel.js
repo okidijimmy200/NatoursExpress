@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 // validator
 const validator = require('validator')
+const uniqueValidator = require('mongoose-unique-validator')
+
+const bcrypt = require('bcryptjs')
 
 // create a schema
 const userSchema = new mongoose.Schema({
@@ -27,10 +30,36 @@ const userSchema = new mongoose.Schema({
     },
     passwordConfrim: {
         type: String,
-        required: [true, 'Please confrim your password']
+        required: [true, 'Please confrim your password'],
+         // --writing custom validators for our password
+         validate: {
+             validator: function(el) {
+                 return el === this.password 
+                //  -this validationonly works on create ,save, so update a user, we use save
+             },
+             message: 'passwords are not the same'
+         }
     }
 })
 
+////ENCRYPTING PASSWORD
+// we will use the document pre save middleware
+userSchema.pre('save', async function(next){
+// here the middleware encryption is going to happen btn the time we receive the data and the
+// time its stored in the database
+// (encrypt password field only when password is updated)
+if (!this.isModified('password')) return next()
+// --we will use bcrypt to perform hashing
+    this.password = await bcrypt.hash(this.password, 12) //12 --cost parameter
+
+    // --hashing the password confrim(this deletes it after)
+    this.passwordConfrim = undefined
+    next()
+}) 
+
+
+
+userSchema.plugin(uniqueValidator)
 const User = mongoose.model('User', userSchema)
 
 module.exports = User;

@@ -11,3 +11,64 @@ Creting New User:
 -all funcs related to auth will be in authentication controller
 -in the postman, we implement the user/signup
 
+Lecture 3:
+Managing Passwords
+-Managing users passwords in the database by 1st validating if the input password is equal to
+confrim password and also encrypt password in the database to secure it from attackss
+-to make the email unique, i used
+
+******npm install --save mongoose-unique-validator**********
+and used it in the project
+
+-one thing with authentication is to never store plain passwords in a databse
+-we have to encrypt users passwords
+-we can do this in the model bse it deals with the data itself
+-we will use the document pre save middleware
+
+-we need to install bcrypt package
+
+**************npm i bcryptjs************
+
+the higher the cost parameter, the higher the cpu intensty and the better the quality of password hashes
+
+Lecture 4:
+How to Authenticate with JWT Works
+-how to implement user authentication and authorization ie allowing users login and interact with the protected resources
+tht non logged in users cannot access.
+
+JWT----(JSON WEB TOKEN)
+-these are a stateless solution for authentication so no need to store any session state on the server
+-this is gd for restful APIs wch are always stateless
+
+--alternatively,we can store the users login state on the server using sessions
+
+How authentiation works with JSON web tokens
+
+--how a user logs into our database
+Users clients make a post request with User name or email and password
+=the app then checks if the user exists and the password is correct
+=then a unique JSON web token for only tht user is created using a secret string stored on the server
+=the server then sends back the JWT back to client wch will be stored either in cookie or local storage so the
+user is authenticated and logged into our app without leaving any state on the server
+-so the server doesnot know wch users are actually logged in bt the user knws bse he has a valid JWT
+
+--so everytime the user wants to access a protect route like his profile data, JWT is sent along with the request
+
+--if the request hits the server, the app will verify if the JSON web token is actually valid
+-if valid, the requested data will be sent to the client, if not there is an error telling the user he's not allowed 
+to access the resource
+
+-all this communication mst happen on https to avoid getting access to password and token
+
+Detail of JWT:
+-JWT is an encoding string made of 3 parts
+*Header,--meta data abt the token its self
+Payload -- data we can encode into the token
+and signature -- this is created using header, payload and secret to create signature saved in the server
+this is called signing the web token
+
+--the server then performs verification of web token to access protected route by creating a test signature to confirm with
+the original token similar with password verification process
+
+--the user is then authenticated
+
