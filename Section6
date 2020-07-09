@@ -72,3 +72,23 @@ the original token similar with password verification process
 
 --the user is then authenticated
 
+Lecture 5:
+signing Up Users:
+-we will implement our signup then signin
+-authentication is a bit of complicated and shd be implemented well
+-we will not implement the authentication using a library
+-the challenge of creating the user with the signup in the prev lecture is tht anyoone
+can specify the role as an admin
+
+--with method 2, we allow user signin only with the data we need to be put into a newUser
+-so here we cant register as an admin and toregister as an admin, we create a new user manaully then move to mongodb compass and edit the
+roles
+-how do we log the new user the moment he signs up
+-we sign a JWT and send it back to the user
+
+*******npm i jsonwebtoken********************************
+
+-we can store our secret files in our config file
+
+-we can check the verification using JWT.io
+
