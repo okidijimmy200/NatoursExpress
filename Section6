@@ -92,3 +92,15 @@ roles
 
 -we can check the verification using JWT.io
 
+Lecture 6:
+Logging in Users:
+-we will implement logging in users based on a given password and email
+-logging in basically means sign a JSON web token and send it back to the client
+-here we only issue the token when the user actually exists
+and the password is correct
+
+-its not a good pratice to leak password data to the client
+-if we are selecting a field tht is not defined, we use a + sign
+
+Incorrect email or password is used instead of specifying whether the email or password is 
+incorrect to avoid hackers from figuring out what exactly is not working

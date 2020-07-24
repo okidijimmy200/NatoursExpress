@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please provide a password'],
-        minlength: 8 //for 8 characters --the most effective passwords r the long ones
+        minlength: 8, //for 8 characters --the most effective passwords r the long ones
+        select: false // to make the password not to be returned
     },
     passwordConfrim: {
         type: String,
@@ -60,6 +61,13 @@ if (!this.isModified('password')) return next()
 
 
 userSchema.plugin(uniqueValidator)
+////////////////////////////////////////////////////////////
+/////////PASSWORD VALIDATION///////////////////////////////
+// --we use a func to encrypt the jst entered password to compare with the original password in the userModel
+// --creating an instance method(this is a method available on all documents of a certain collection)
+userSchema.methods.correctPassword = async function(candidatePassword, userPassword){
+    return await bcrypt.compare(candidatePassword, userPassword) // return 2 passwords if they are the same else return false
+}
 const User = mongoose.model('User', userSchema)
 
 module.exports = User;

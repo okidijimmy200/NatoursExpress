@@ -9,6 +9,7 @@ const router = express.Router()
 
 // --we need to do auth wch makes user abit different
 router.post('/signup', authController.signup)
+router.post('/login', authController.login)
 
 // route for users
 router
