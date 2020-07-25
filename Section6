@@ -104,3 +104,17 @@ and the password is correct
 
 Incorrect email or password is used instead of specifying whether the email or password is 
 incorrect to avoid hackers from figuring out what exactly is not working
+
+Lecture 7:
+Protecting Tour Routes
+-How do we use the created JSON web tokens to give the logged in users access to protected routes
+-this is the second step of authentication
+-if we wish to protect the getAllTOurs route where we allow only logged in users access to a list of 
+all tours
+-so before running the getAllTOurs, we will need to run some checks to verify if the user is logged in or not
+-we use a middleware function to perform this.
+
+-we implement header check in postman by clicking the get all tours
+-we need to send JSON token as the header,
+-we use a header Authorization(key) and value(Bearer 'actual value'
+-the actual value is the token

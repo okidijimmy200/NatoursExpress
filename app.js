@@ -42,7 +42,8 @@ app.use(express.static(`${__dirname}/public`))
 // middleware to manipulate the requests
 app.use((req, res, next)  => {
     // adding current time to the request and onverting it to string
-    req.requestTime = new Date().toISOString();    
+    req.requestTime = new Date().toISOString(); 
+    // console.log(req.headers) // --logging the headers   
     next();
 })
 

@@ -75,3 +75,25 @@ exports.login =catchAsync(async (req, res, next) =>{
         token
     })
 })
+
+///////////////////////////////////////////////////////////////
+///////////Middleware for protecting getAlltours route
+exports.protect = catchAsync(async (req, res, next) => {
+    let token;
+    // 1) Get token and check if it exists
+    // --we use http header with token to check if it exists
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+        token = req.headers.authorization.split(' ')[1] // split bearer array to 2 and take the second part of array
+    }
+    console.log(token)
+
+    // --check if token exists
+    if(!token){
+        // 401--not authorized
+        return next(new AppError('you are not logged in! please log in to get access', 401))
+    }
+    // 2) validate the token(JWT algorithm to valdate)
+    // 3) Check if user still exists
+    // 4) Check if user changed password after Token was issued
+    next()
+})

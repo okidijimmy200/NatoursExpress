@@ -7,7 +7,8 @@ const tourController = require('../controllers/tourControler')
 
 // using multiple routes
 const router = express.Router()
-
+// --import the protection middleware
+const authController = require('../controllers/authController')
 // using param routes
 // val is the value of parameter in question
 // router.param('id', tourController.checkID)
@@ -19,9 +20,11 @@ router.route('/tour-stats').get(tourController.getTourStats)
 // --router to get busiest month,we need to pass the year
 router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan)
 // specifying the route we want
+
+
 router
     .route('/')
-    .get(tourController.getAllTours)
+    .get(authController.protect, tourController.getAllTours) //protecting the getAlltours route
     // implementing multiple requests on the tour
     .post(tourController.createTour);
 
