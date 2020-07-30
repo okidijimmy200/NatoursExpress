@@ -118,3 +118,16 @@ all tours
 -we need to send JSON token as the header,
 -we use a header Authorization(key) and value(Bearer 'actual value'
 -the actual value is the token
+
+Lecture 8:
+Protecting tour routes 2:
+-implementing the verification step to check is someone manipulated the data or not
+-the docoded value gives us the id of the user wch we can check out in mongoAtlas
+-if we try to change the token or it expires,it gives us a jwt token error
+
+
+2)if the user tries to access the app with expired token
+-to implement this, we will change the time it tkes for the tken to expire
+
+-if the user is deleted in the mean time, the token will still exist bt the user is nolonger there
+-what if the user changes the password after issuing the token

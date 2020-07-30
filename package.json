@@ -20,6 +20,7 @@
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
     "slugify": "^1.4.2",
+    "util.promisify": "^1.0.1",
     "validator": "^10.8.0"
   },
   "devDependencies": {

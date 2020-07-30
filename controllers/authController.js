@@ -1,3 +1,4 @@
+const promisify = require('util.promisify');
 const User = require('../models/userModel')
 // --import catchAsync
 const catchAsync = require('../utils/catchAsync')
@@ -25,7 +26,8 @@ exports.signup = catchAsync(async(req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        passwordConfrim: req.body.passwordConfrim
+        passwordConfrim: req.body.passwordConfrim,
+        passwordChangedAt:req.body.passwordChangedAt,
     })
 
     // --using the JWT(payload, secret)
@@ -85,15 +87,33 @@ exports.protect = catchAsync(async (req, res, next) => {
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token = req.headers.authorization.split(' ')[1] // split bearer array to 2 and take the second part of array
     }
-    console.log(token)
+    
 
     // --check if token exists
     if(!token){
         // 401--not authorized
         return next(new AppError('you are not logged in! please log in to get access', 401))
     }
-    // 2) validate the token(JWT algorithm to valdate)
+    // 2) validate the token(JWT algorithm to valdate) or check if it has expired
+    // --we need a secret wch is at process.env.jwtsecret
+    const decoded =  await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+
+
     // 3) Check if user still exists
+    const freshUser = await User.findById(decoded.id)
+    // check if there is a fresh user
+    if(!freshUser) {
+        return next(new AppError('The user belonging to this token doesnot exist anymore!.', 401))
+    }
     // 4) Check if user changed password after Token was issued
-    next()
-})
+    // (we create an instance method wch is available on all the models of the document in userModel)
+    // iat--issued at
+    if(freshUser.changePasswordAfter(decoded.iat)){
+        // --if password is changed, we get an error
+        return next(new AppError('User recently changed the password! please login again.', 401))
+    };
+
+    //Grant access to protected route if it succeds all  the above step
+    req.user = freshUser; //place the user data on request
+    next();
+});

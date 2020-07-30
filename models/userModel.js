@@ -40,7 +40,11 @@ const userSchema = new mongoose.Schema({
              },
              message: 'passwords are not the same'
          }
-    }
+    },
+    passwordChangedAt: Date,
+    
+   
+   
 })
 
 ////ENCRYPTING PASSWORD
@@ -68,6 +72,23 @@ userSchema.plugin(uniqueValidator)
 userSchema.methods.correctPassword = async function(candidatePassword, userPassword){
     return await bcrypt.compare(candidatePassword, userPassword) // return 2 passwords if they are the same else return false
 }
+
+////////////change password/////////////////////
+userSchema.methods.changePasswordAfter = function(JWTTimestamp) {
+    // if password changed, do the comparison
+    if(this.passwordChangedAt) {
+        // --convert passwordChangedAt to  timestamp, 10--base 10 number
+        const changedTimeStamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+        // console.log(changedTimeStamp, JWTTimestamp)
+        return JWTTimestamp < changedTimeStamp; //not changed means the day and time token issued is less thn changed timestamp
+    }
+    // --false means not changed
+    return false;
+}
+
+
+
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User;
