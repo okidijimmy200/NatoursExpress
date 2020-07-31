@@ -21,33 +21,28 @@ const signToken = id => {
      })
 }
 
+// --function to create and send token
+const createSendToken = (user, statusCode, res) => {
+       // --using the JWT(payload, secret)
+       const token = signToken(user._id )
+
+       // sendnew user to client
+       res.status(statusCode).json({
+           status: 'Success',
+           token, //sending token to client
+           data: {
+               user
+           }
+       })
+} 
+
 // async bse we wil do some db operations
 exports.signup = catchAsync(async(req, res, next) => {
     // creating newUser
     // const newUser = await User.create(req.body)
     // --we will use the 2nd authentication to avoid any user signin up as admin
-    const newUser = await User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        passwordConfirm: req.body.passwordConfirm,
-        passwordChangedAt:req.body.passwordChangedAt,
-        passwordResetToken: req.body.passwordResetToken,
-        passwordResetExpires:req.body.passwordResetExpires
-    })
-
-    // --using the JWT(payload, secret)
-    const token = signToken(newUser._id )
-
-    
-    // sendnew user to client
-    res.status(201).json({
-        status: 'Success',
-        token, //sending token to client
-        data: {
-            user: newUser
-        }
-    })
+    const newUser = await User.create(req.body)
+    createSendToken(newUser, 201, res)
     // wrap the func into the catch async function
 })
 // logging in the user
@@ -77,13 +72,9 @@ exports.login =catchAsync(async (req, res, next) =>{
 
     // 3rd if everything ok, send the token
     ///token implemenatation
-    const token = signToken(user._id);
-    res.status(200).json({
-        status: 'success',
-        token
-    })
-})
+    createSendToken(user, 200, res)
 
+})
 ///////////////////////////////////////////////////////////////
 ///////////Middleware for protecting getAlltours route
 exports.protect = catchAsync(async (req, res, next) => {
@@ -197,11 +188,25 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     await user.save();
     // 3) update changedPasswordAt property for user
     // 4) Log the user in, send the JWT
-    ///token implemenatation
-    const token = signToken(user._id);
-    res.status(200).json({
-        status: 'success',
-        token
-    })
+    createSendToken(user, 200, res);
 
+})
+
+// --password update functionality
+exports.updatePassword = catchAsync(async (req, res, next) => {
+    // --pass in current password to confirm
+    // 1) Get user from collection
+    const user = await User.findById(req.user.id).select('+password')
+    // 2) check if posted password is correct
+if (!(await user.correctPassword(req.body.passwordCurrent, user.password))){
+    return next(new AppError('Your current password is wrong!', 401))
+}
+    // 3) if so, update the password
+user.password = req.body.password;
+user.passwordConfirm = req.body.passwordConfirm;
+await user.save();
+// User.findByIdandUpdate will not work
+    // 4) log the user in , send JWT
+    createSendToken(user, 200, res)
+    
 })

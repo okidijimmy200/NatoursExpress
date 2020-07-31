@@ -161,5 +161,9 @@ Sending Emails with NodeMailer:
 
 Lecture 12:
 Password reset Functionality setting New Password
+
+Lecture 13:
+Updating the current User Password
+-how to enable a logged in user update password without going through the forgot password route
 -
 

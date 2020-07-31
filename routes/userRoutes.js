@@ -15,6 +15,9 @@ router.post('/login', authController.login)
 router.post('/forgotPassword', authController.forgotPassword)
 router.patch('/resetPassword/:token', authController.resetPassword)
 
+// change password
+router.patch('/updateMyPassword', authController.protect, authController.updatePassword)
+
 // route for users
 router
     .route('/')
