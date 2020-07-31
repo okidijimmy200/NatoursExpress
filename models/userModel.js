@@ -4,6 +4,8 @@ const validator = require('validator')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const bcrypt = require('bcryptjs')
+// --import crypto
+const crypto = require('crypto')
 
 // create a schema
 const userSchema = new mongoose.Schema({
@@ -42,6 +44,8 @@ const userSchema = new mongoose.Schema({
          }
     },
     passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date
     
    
    
@@ -86,7 +90,21 @@ userSchema.methods.changePasswordAfter = function(JWTTimestamp) {
     return false;
 }
 
+// --user schema for forgotten password
+userSchema.methods.createPasswordResetToken = function() {
+    // --reset the password token to send to user
+    const resetToken = crypto.randomBytes(32).toString('hex')
+    //  ecnrypt the token
+    this.passwordResetToken =  crypto.createHash('sha256').update(resetToken).digest('hex')
 
+    console.log({resetToken}, this.passwordResetToken)
+    // password reset expires in 10 mins
+    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+    // return plain text token
+    return resetToken;
+
+
+}
 
 
 const User = mongoose.model('User', userSchema)

@@ -131,3 +131,31 @@ Protecting tour routes 2:
 
 -if the user is deleted in the mean time, the token will still exist bt the user is nolonger there
 -what if the user changes the password after issuing the token
+
+Lecture 9:
+Advanced Postman Setup:
+-concept of environment
+**this is a context for where our app is running and we can specify a variable for each of these environments
+=click setting icon in the topright corner
+-we specify the dev and prod env
+-URL replaces the variable coming from our env
+
+--copying token an placing it in the bearer header
+-we do this at login and signup with some code
+-we use the test tab to create the env varialble
+-we do this for the login tab as well
+
+Lecture 10:
+Passwords Rest Functionality
+-to implement password, the user sends an email wch gives us access to change our email
+
+
+Lecture 11:
+Sending Emails with NodeMailer:
+-send password resend token using email to user
+-we will do this in the utiltiy folder cal the file email.js
+-install NodeMailer
+**************npm i nodemailer*******************
+
+--we then use mailtrap to fake how email will look like in prod
+

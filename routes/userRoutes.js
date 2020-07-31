@@ -11,6 +11,10 @@ const router = express.Router()
 router.post('/signup', authController.signup)
 router.post('/login', authController.login)
 
+// routes for fogetten password and reset password
+router.post('/forgotPassword', authController.forgotPassword)
+router.patch('/resetPassword/:token', authController.resetPassword)
+
 // route for users
 router
     .route('/')
