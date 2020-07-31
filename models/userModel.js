@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         minlength: 8, //for 8 characters --the most effective passwords r the long ones
         select: false // to make the password not to be returned
     },
-    passwordConfrim: {
+    passwordConfirm: {
         type: String,
         required: [true, 'Please confrim your password'],
          // --writing custom validators for our password
@@ -62,9 +62,18 @@ if (!this.isModified('password')) return next()
     this.password = await bcrypt.hash(this.password, 12) //12 --cost parameter
 
     // --hashing the password confrim(this deletes it after)
-    this.passwordConfrim = undefined
+    this.passwordConfirm = undefined
     next()
 }) 
+
+
+// function wch runs right before the docu is saved
+userSchema.pre('save', function(next){
+    // --this shd be done when we modify password prop
+    if(!this.isModified('password')|| this.isNew ) return next();
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
+})
 
 
 

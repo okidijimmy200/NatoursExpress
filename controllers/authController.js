@@ -9,6 +9,8 @@ const jwt = require('jsonwebtoken')
 const AppError = require('../utils/appError')
 // --import mail
 const sendEmail = require('../utils/email')
+// import crypt
+const crypto = require('crypto')
 
 // --function for creating token
 const signToken = id => {
@@ -28,7 +30,7 @@ exports.signup = catchAsync(async(req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        passwordConfrim: req.body.passwordConfrim,
+        passwordConfirm: req.body.passwordConfirm,
         passwordChangedAt:req.body.passwordChangedAt,
         passwordResetToken: req.body.passwordResetToken,
         passwordResetExpires:req.body.passwordResetExpires
@@ -166,4 +168,40 @@ exports.forgotPassword = catchAsync(async(req, res, next) => {
 }
 )
 // reset passwords
-exports.resetPassword = (req, res, next) => {}
+exports.resetPassword = catchAsync(async (req, res, next) => {
+    // 1) get user based on the token
+    // (we need to encrypt the original token again to compare with the encrypted one in the DB)
+    const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex'); // from the Url
+    // get the user based on token only
+    const user = await User.findOne(
+        {passwordResetToken: hashedToken,
+            // --check if the password expiry properrty is greater than time now
+        passwordResetExpires:{$gt: Date.now()}
+        })
+    
+
+    
+    
+    // 2) set new password only if token has not expired and there is a new user
+    // (send an error if the token has expired or if no user)
+    if(!user){
+        return next(new AppError('Token is invalid or has expired'), 400)
+    }
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined // delete reset and expired token
+    user.passwordResetExpires = undefined
+    await user.save();
+    // 3) update changedPasswordAt property for user
+    // 4) Log the user in, send the JWT
+    ///token implemenatation
+    const token = signToken(user._id);
+    res.status(200).json({
+        status: 'success',
+        token
+    })
+
+})
