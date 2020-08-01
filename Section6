@@ -145,12 +145,20 @@ Advanced Postman Setup:
 -we use the test tab to create the env varialble
 -we do this for the login tab as well
 
-Lecture 10:
+Lecture 10
+Authorization User Roles and Permissions
+-how to delete tour based on authorization to enable certain users
+perform certain operations based on their functionalities
+
+
+
+
+Lecture 11:
 Passwords Rest Functionality
 -to implement password, the user sends an email wch gives us access to change our email
 
 
-Lecture 11:
+Lecture 12:
 Sending Emails with NodeMailer:
 -send password resend token using email to user
 -we will do this in the utiltiy folder cal the file email.js
@@ -159,11 +167,16 @@ Sending Emails with NodeMailer:
 
 --we then use mailtrap to fake how email will look like in prod
 
-Lecture 12:
+Lecture 13:
 Password reset Functionality setting New Password
 
-Lecture 13:
+Lecture 14:
 Updating the current User Password
 -how to enable a logged in user update password without going through the forgot password route
 -
+
+Lecture 15:
+Updating the current user: data
+-we will allow the currently logged in user to manipulate his user data
+-by implementing user updates, we are leaving the authController and moving to the userController
 

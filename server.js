@@ -32,13 +32,13 @@ mongoose.connect(process.env.DATABASE_LOCAL,{
 }).then(() => console.log('DB connection successful'));
 
 // mongoose remote
-mongoose.connect(DB, {
-    // objects to deal with warnings
-    useUnifiedTopology: true,
-    useNewUrlParser:true,
-    useCreateIndex:true,
-    useFindAndModify:false
-}).then(() => console.log('DB connection successful'));
+// mongoose.connect(DB, {
+//     // objects to deal with warnings
+//     useUnifiedTopology: true,
+//     useNewUrlParser:true,
+//     useCreateIndex:true,
+//     useFindAndModify:false
+// }).then(() => console.log('DB connection successful'));
 
 
 

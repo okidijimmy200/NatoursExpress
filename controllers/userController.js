@@ -2,6 +2,22 @@
 const catchAsync = require('../utils/catchAsync')
 // importing the tour model
 const User = require('../models/userModel')
+
+// import app error
+const AppError = require('../utils/appError')
+
+
+///function to filter bodyobj
+const filterObj =(obj, ...allowedFields) => {
+    // --fileds to pass in to check if its an allowed fields
+    const newObj = {}
+    Object.keys(obj).forEach(el => {
+        // el --current element
+        if(allowedFields.includes(el)) newObj[el] = obj[el]
+    })
+    return newObj
+}
+
 // creating a function for users
 exports.getAllUsers = catchAsync(async(req, res, next) => {
 
@@ -19,6 +35,33 @@ exports.getAllUsers = catchAsync(async(req, res, next) => {
         }
     })
 })
+
+//////////////////updating the currently authenticated User
+exports.updateMe = catchAsync(async (req, res, next) => {
+    // 1) create error if user POSTs password data
+    if(req.body.password || req.body.passwordConfirm){
+        return next(new AppError('This route is not for password update. please use /updateMyPassword', 400))
+    }
+
+
+    // 3) filter out unwanted fields names that are not allowedto be updated
+    const filteredBody = filterObj(req.body, 'name', 'email' ) // fields we can update
+    // 3)Update user document
+    // --here we use findbyid and updte, x is the data to update
+    
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            user: updatedUser
+        }
+    })
+})
+
 
 exports.getUser = (req, res) => {
     // 500 --server error

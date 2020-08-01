@@ -18,6 +18,9 @@ router.patch('/resetPassword/:token', authController.resetPassword)
 // change password
 router.patch('/updateMyPassword', authController.protect, authController.updatePassword)
 
+// change user data
+router.patch('/updateMe', authController.protect, userController.updateMe)
+
 // route for users
 router
     .route('/')

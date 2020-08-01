@@ -210,3 +210,14 @@ await user.save();
     createSendToken(user, 200, res)
     
 })
+
+///////////////////restrict access to
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => { //func gets access to the roles
+        // roles is an array ['admin', 'lead-guide'], role=user
+        if(!roles.includes(req.user.role)){
+            return next(new AppError('you donot have permission to perform this action', 403)) //403--forbidden
+        }
+        next();
+    }
+}
