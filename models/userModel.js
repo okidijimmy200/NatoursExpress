@@ -50,11 +50,16 @@ const userSchema = new mongoose.Schema({
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
-    passwordResetExpires: Date
-    
-   
-   
+    passwordResetExpires: Date,
+    active: {
+        type: Boolean,
+        default: true,
+        select: false // to hide it from output
+
+    }
+
 })
+
 
 ////ENCRYPTING PASSWORD
 // we will use the document pre save middleware
@@ -81,6 +86,13 @@ userSchema.pre('save', function(next){
 })
 
 
+// --to avoid active/inactive from appearing in the getAllUsers 
+userSchema.pre(/^find/, function(next) {
+    // this points to the current query
+    // --here we want to only find documents tht have the active property set to true
+    this.find({ active: {$ne: false} })
+    next();
+})
 
 userSchema.plugin(uniqueValidator)
 ////////////////////////////////////////////////////////////

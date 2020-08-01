@@ -180,3 +180,12 @@ Updating the current user: data
 -we will allow the currently logged in user to manipulate his user data
 -by implementing user updates, we are leaving the authController and moving to the userController
 -this updates the name and not the role
+
+Lecture 16:
+Deleting the Current User
+-how to enable current user to delete his accoutn
+-when a delete is performed, we dont delete the document from the database
+-we jst set the account to inactiveb
+
+--how do we avoid showing inactive users in the getAllUsers route
+-we use query middleware

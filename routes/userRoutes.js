@@ -20,6 +20,8 @@ router.patch('/updateMyPassword', authController.protect, authController.updateP
 
 // change user data
 router.patch('/updateMe', authController.protect, userController.updateMe)
+// delete user
+router.delete('/deleteMe', authController.protect, userController.deleteMe)
 
 // route for users
 router
