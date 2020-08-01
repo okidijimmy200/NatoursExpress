@@ -179,4 +179,4 @@ Lecture 15:
 Updating the current user: data
 -we will allow the currently logged in user to manipulate his user data
 -by implementing user updates, we are leaving the authController and moving to the userController
-
+-this updates the name and not the role
