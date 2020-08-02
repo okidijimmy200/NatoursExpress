@@ -7,7 +7,10 @@ const morgan = require('morgan')
 const rateLimit = require('express-rate-limit')
 // import helmet
 const helmet = require('helmet')
-
+// import mongo-sanitize
+const mongoSanitize = require('express-mongo-sanitize')
+// --import xss
+const xss = require('xss-clean')
 // --import apperror
 const AppError = require('./utils/appError')
 
@@ -44,6 +47,14 @@ app.use('/api', limiter) // this affects all routes tht start with api
 // Body parser, reading data from body into req.body
 // using middleware
 app.use(express.json({ limit: '10kb'}))
+
+
+// --cleaning the data(data sanitization against nosql query injections)
+
+app.use(mongoSanitize()) // this filters out $ and dots
+// --cleaning the data(data sanitization against XSS attacks)
+
+app.use(xss()) //clean user from html malicious code
 
 
 

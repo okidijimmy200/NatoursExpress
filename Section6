@@ -263,3 +263,22 @@ Setting Security HTTP headers
 -we will use an npm package to set security http headers
 
 ****npm i helmet************** this is a standard for express
+
+Lecture 21:
+Data Sanitization
+-we will use 2 packages to perform data sanitization
+--data sanitization means cleaning the data tht comes into app
+from malicious code
+
+
+{
+    "email": { "$gt": " "},
+    "password": "password123"
+}
+
+if we implement this in postman, it will bring to use the admin user jst by knowing the password
+-so we need to protect against XSS attacks
+
+********************npm i express-mongo-sanitize*******************
+
+********************npm i xss-clean *************
