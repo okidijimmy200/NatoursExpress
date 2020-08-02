@@ -11,6 +11,8 @@ const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 // --import xss
 const xss = require('xss-clean')
+// --import hpp
+const hpp = require('hpp')
 // --import apperror
 const AppError = require('./utils/appError')
 
@@ -56,6 +58,19 @@ app.use(mongoSanitize()) // this filters out $ and dots
 
 app.use(xss()) //clean user from html malicious code
 
+
+// --hpp
+app.use(hpp({
+    // params to whitelist(to allow duplicates)
+    whitelist: [
+        'duration',
+        'ratingsQuantity',
+        'ratingsAverage',
+        'maxGroupSize',
+        'difficulty',
+        'price'
+    ]
+})) //prevent parameter pollution
 
 
 

@@ -282,3 +282,10 @@ if we implement this in postman, it will bring to use the admin user jst by know
 ********************npm i express-mongo-sanitize*******************
 
 ********************npm i xss-clean *************
+
+Lecture 22:
+Preventing parameter pollution
+-prevent parameter pollution using another package
+-this is a package tht removes duplicate fields
+
+**************npm i hpp**************
