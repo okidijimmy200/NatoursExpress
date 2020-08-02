@@ -257,3 +257,9 @@ many requests, block these requests
 and the rate limit remaining
 -so the more requests we make, the number of rate limit remaining starts to
 reduce accordingly
+
+Lecture 20:
+Setting Security HTTP headers
+-we will use an npm package to set security http headers
+
+****npm i helmet************** this is a standard for express

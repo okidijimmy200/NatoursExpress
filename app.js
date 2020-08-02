@@ -5,6 +5,8 @@ const morgan = require('morgan')
 
 // import rateLimit
 const rateLimit = require('express-rate-limit')
+// import helmet
+const helmet = require('helmet')
 
 // --import apperror
 const AppError = require('./utils/appError')
@@ -20,12 +22,17 @@ const userRouter = require('./routes/userRoutes')
 const app = express();
 
 // using the GLOBAL middleware
+
+// --call helmet(Security HTTP Header middleware)
+app.use(helmet())
+
+// --development logging
 // app.use(morgan('dev'));
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
   }
 
-
+// --limit requests from same API
 const limiter = rateLimit({
     // --how many requests per IP
     max: 100,
@@ -33,8 +40,12 @@ const limiter = rateLimit({
     message:  'Too many requests from the this IP address, Please try again in 1 hr'
 });
 app.use('/api', limiter) // this affects all routes tht start with api
+
+// Body parser, reading data from body into req.body
 // using middleware
-app.use(express.json())
+app.use(express.json({ limit: '10kb'}))
+
+
 
 
 // creating our own middleware functions
