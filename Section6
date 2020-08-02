@@ -189,3 +189,56 @@ Deleting the Current User
 
 --how do we avoid showing inactive users in the getAllUsers route
 -we use query middleware
+
+Lecture 17
+Security Best Practices
+-Quick summary of best Practices
+**1st
+Compromised database
+-Strongly encrypt passwords with salt and hash(bcrypt)
+-Strongly encrypt password reset tokens(SHA 256)
+
+BruteForce attackss
+-use bycrypt (to make the login requests slow)
+-implement rate limiting (express-rate-limit)
+-implement maximum login attempts
+
+Cross site scripting attackss
+-store JWT in HttpOnly cookie not local storage
+-sanitize user input data
+-set special HTTP headers (helemt packages)
+
+Denial Of Service attacks
+-implement rate limiting(express-rate-limit)
+-limit body payload(in-body-parser)
+-avoid evil regular expressions
+
+NoSQL query injection
+-use mongoose for mongodb
+-sanitize user input data
+
+Other best Practices
+--always use HTTPS
+--create random password reset tokens with expiry dates
+-deny access to JWT after password change
+-dont commit sensitive coding data to git
+-dont send error detail to clients
+-prevent cross-site request Fogery(csrf-package)
+-require authentication before a high value action
+-implement a lacklist of untrusted JWT
+-confirm user email address after first creating account
+-keep user loged in with refresh tokens
+-implement two-factor authentication
+-prevent parameter pollution causing uncaught exceptions
+
+Lecture 18:
+Sending JWT via Cookie 
+-JWT shd be stored in secure HTTP only cookie
+-we need to send the token as a cookie the secure way
+
+**a cookie is a small piece of text tht the server can send to the
+client
+-when the client recieves the cookie, it will automatically store it and then 
+send it back automatically with all future requests to the same server
+--when we create a new user, we get a cookie responsein postman
+-we need to get rid of password in postman signup

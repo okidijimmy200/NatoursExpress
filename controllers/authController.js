@@ -25,7 +25,18 @@ const signToken = id => {
 const createSendToken = (user, statusCode, res) => {
        // --using the JWT(payload, secret)
        const token = signToken(user._id )
+       const cookieOptions = {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+        httpOnly: true // cookie cant be modified in the browser
+    };
+    // --to perform secure to true in prod only
+    if(process.env.NODE_ENV === 'production') cookieOptions.secure = true //secure: true, //cookie will be sent only on https
 
+    // --to hide the password display on signup
+    user.password = undefined
+
+       ////////////send a cookie
+       res.cookie('jwt', token, cookieOptions )
        // sendnew user to client
        res.status(statusCode).json({
            status: 'Success',
