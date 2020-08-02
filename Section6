@@ -242,3 +242,18 @@ client
 send it back automatically with all future requests to the same server
 --when we create a new user, we get a cookie responsein postman
 -we need to get rid of password in postman signup
+
+Lecture 19:
+Implementing Rate limiting
+-how to prevent the same IP from making too many requests to the API
+-this is to avoid cross site scripting attacks and DNS attacks
+-the rate limiter counts the number of requests coming from one IP and if there are too
+many requests, block these requests
+-we implement this in app.js file
+
+**npm i express-rate-limit*******
+
+-rate limiter creates headers in postman wch r the rate limit --limit
+and the rate limit remaining
+-so the more requests we make, the number of rate limit remaining starts to
+reduce accordingly
