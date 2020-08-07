@@ -193,3 +193,8 @@ Populating tour guides:
 -this displays to us information bt doesnot create them in the database
 --we can create an object of options in populate
 --populate may affect your performance so its best not used alot 
+
+Lecture 7:
+Modelling Reviews Parent Referencing:
+-implementing the reviews model
+-we create a new filein the models called reviews.js
