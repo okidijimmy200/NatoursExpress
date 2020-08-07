@@ -18,6 +18,8 @@ const AppError = require('./utils/appError')
 
 // --import global error handler
 const globalErrorHandler = require('./controllers/errorController')
+// import reviewRouter
+const reviewRouter = require('./routes/reviewRoutes')
 
 // importing the tour router
 const tourRouter = require('./routes/tourRoutes')
@@ -101,6 +103,7 @@ app.use((req, res, next)  => {
 // (mounting a new router on a route)
 app.use('/api/v1/tours',tourRouter );
 app.use('/api/v1/users', userRouter );
+app.use('/api/v1/reviews', reviewRouter );//mounting reviews to new path
 
 
 // --router wch is implemented only if other routes have not bn implemented

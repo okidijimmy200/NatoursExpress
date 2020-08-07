@@ -198,3 +198,8 @@ Lecture 7:
 Modelling Reviews Parent Referencing:
 -implementing the reviews model
 -we create a new filein the models called reviews.js
+
+Lecture 8:
+Creating and Getting Reviews:
+--we will implement an endpoint for getting reviews and also creating new reviews
+--creating endpoint for getting reviews and also creating new reviews
