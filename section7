@@ -203,3 +203,9 @@ Lecture 8:
 Creating and Getting Reviews:
 --we will implement an endpoint for getting reviews and also creating new reviews
 --creating endpoint for getting reviews and also creating new reviews
+
+Lecture 9:
+Populate Reviews:
+--populate reviews with tour and user data
+--these will be automatically populated when there is a query for review
+--to populate 2 fields,u call the populate twice
