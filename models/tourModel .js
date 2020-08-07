@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const slugify = require('slugify')
 // --import validator
 const validator = require('validator')
+// --import user
+// const User = require('./userModel') ---for embedding we import user
 
 
 // creating a schema for our tour
@@ -100,7 +102,40 @@ const tourSchema = new mongoose.Schema({
     secretTour: {
         type: Boolean,
         default: false
-    }
+    },
+    // --geospatial data info(location)
+    startLocation: {
+        // --we use geejson to specify geodata
+      type:{
+          type: String,
+          default: 'Point', // we cld specify poligons, geometry etc
+          enum: ['Point'] //all possible options the field can take
+      },
+      coordinates: [Number], //expect array of longitude and latitude
+      address:String,
+      description: String
+    },
+    // --getting an array for locations
+    locations: [
+        {
+            type: {
+                type: String,
+                default: 'Point',
+                enum:['Point']
+            },
+            coordinates:[Number],
+            address: String,
+            description: String,
+            day: Number
+        }
+    ],
+    // guides: Array  ----embedding documents
+    // --referencing docs
+    guides: [
+        {type: mongoose.Schema.ObjectId,
+        ref: 'User'
+        }
+    ]
 
 },
 // --object for options
@@ -125,6 +160,15 @@ tourSchema.pre('save', function(next){
     this.slug = slugify(this.name, { lower: true })
     next();
 })
+
+
+////pre save middleware for tour and user id
+// --embedding new docs 
+// tourSchema.pre('save', async function(next) {
+//    const guidesPromises =  this.guides.map(async id => await User.findById(id))
+//    this.guides = await Promise.all(guidesPromises) // to change the guidePromise above to simply guides
+//    next();
+// })
 // // --we can have multiple pre or post middleware for hooks
 // tourSchema.pre('save', function(next){
 //     console.log('Will save document')
@@ -160,6 +204,15 @@ tourSchema.post(/^find/, function(docs, next){
     next()
 })
 
+
+///populate middleware, this is  gd way of populating all docs
+tourSchema.pre(/^find/, function(next){
+    this.populate({
+        path:'guides',
+        select:'-__v -passwordChangedAt'
+    })
+    next()
+})
 //  AGGREGATION MIDDLEWARE
 tourSchema.pre('aggregate', function(next) {
     //  we add a match at the beginning of the pipeline array

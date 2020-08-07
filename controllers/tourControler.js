@@ -36,10 +36,6 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
         const features = new APIFeatures(Tour.find(), req.query).filter().sort().limitFields().paginate()
         const tours = await features.query
 
-
-
-
-
     //SEND RESPONSE
     // send back all the tours
     res.status(200).json({
@@ -59,6 +55,9 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 })
 // creating function for getTour
 exports.getTour =  catchAsync(async (req, res, next) => {
+    //add populate to query and field to populate from our models
+    // const tour = await Tour.findById(req.params.id).populate('guides')
+    // --we can also create object for populate fn
     const tour = await Tour.findById(req.params.id)
 
     //    --implemet if no tour, create error
