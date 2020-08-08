@@ -146,13 +146,20 @@ const tourSchema = new mongoose.Schema({
     }
 )
 
+
 // --we define virtual properties o schema
 tourSchema.virtual('durationWeeks').get(function() {
     // --calculating duration in weeks
     // --we use function() bse arrow function doesnot get a this keyword
     // --we will use regular functions in mongoose
-    return this.duration/7
+    return this.duration / 7
 })
+
+// --virtual populate
+// tourSchema.virtual('review', { //review--name of fieild
+//     ref: 'Review', //name of model to reference
+//     // specify the name of the fields to connect to the dataset
+// })
 
 ///////Mongoose document middleware
 // --this runs before the save() and create() commands not insertMany()

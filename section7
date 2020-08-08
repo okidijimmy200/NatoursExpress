@@ -209,3 +209,10 @@ Populate Reviews:
 --populate reviews with tour and user data
 --these will be automatically populated when there is a query for review
 --to populate 2 fields,u call the populate twice
+
+Lecture 10:
+Virtual Populate Tours and Reviews
+--virtual populate helps us access reviews the other way round ie 
+getting reviews from tours bse the parent doesnot knw abt its siblings
+--here the parent(tour) doesnot knw abt reviews
+-virtual populate helps us populate tours with reviews
