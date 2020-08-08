@@ -156,10 +156,12 @@ tourSchema.virtual('durationWeeks').get(function() {
 })
 
 // --virtual populate
-// tourSchema.virtual('review', { //review--name of fieild
-//     ref: 'Review', //name of model to reference
-//     // specify the name of the fields to connect to the dataset
-// })
+tourSchema.virtual('review', { //review--name of fieild
+    ref: 'Review', //name of model to reference
+    // specify the name of the fields to connect to the dataset
+    foreignField: 'tour', //tour field from the review field model
+    localField: '_id' //where id is stored
+})
 
 ///////Mongoose document middleware
 // --this runs before the save() and create() commands not insertMany()

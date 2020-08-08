@@ -216,3 +216,12 @@ Virtual Populate Tours and Reviews
 getting reviews from tours bse the parent doesnot knw abt its siblings
 --here the parent(tour) doesnot knw abt reviews
 -virtual populate helps us populate tours with reviews
+
+--the challenge with this is tht it creates a chain of reviews
+--reviews get populated wih tour and user and the tour gets  populated by the guides
+
+-we will turn off populate for reviews with tours
+
+Lecture 11:
+Implementing Simple Nested Routes:
+--

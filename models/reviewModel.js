@@ -38,12 +38,18 @@ const reviewSchema = new mongoose.Schema({
 
 //populate schema
 reviewSchema.pre(/^find/, function(next) {
+    // this.populate({
+    //     path: 'tour', //ref to a model called tour
+    //     select:'name'
+    // })
+    // // to populate with user
+    // .populate({
+    //     path: 'user',
+    //     select: 'name photo' // display user name and photo only
+    // })
+
+    // to populate with user only without tour
     this.populate({
-        path: 'tour', //ref to a model called tour
-        select:'name'
-    })
-    // to populate with user
-    .populate({
         path: 'user',
         select: 'name photo' // display user name and photo only
     })

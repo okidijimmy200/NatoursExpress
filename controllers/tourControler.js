@@ -58,7 +58,7 @@ exports.getTour =  catchAsync(async (req, res, next) => {
     //add populate to query and field to populate from our models
     // const tour = await Tour.findById(req.params.id).populate('guides')
     // --we can also create object for populate fn
-    const tour = await Tour.findById(req.params.id)
+    const tour = await Tour.findById(req.params.id).populate('review')
 
     //    --implemet if no tour, create error
     if(!tour) {
