@@ -242,3 +242,8 @@ Nested Routes with Express:
 --how do we mount the review router in the tour router
 --by default each router has access to only params of their route
 --with merger params, we can have access to tour id from reviewRouter
+
+Lecture 13:
+Ading a Nested GET Endpoint
+--creating a nested end point
+we create a nested end point for the get tour section
