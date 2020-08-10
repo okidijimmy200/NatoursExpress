@@ -49,6 +49,7 @@ reviewSchema.pre(/^find/, function(next) {
     // })
 
     // to populate with user only without tour
+
     this.populate({
         path: 'user',
         select: 'name photo' // display user name and photo only
@@ -65,3 +66,4 @@ module.exports = Review
 // --parent referencing here bse both tour and user are the parents of the data set
 // --the reviews section will have multiple reviews and bse we dont knw how long our arrays
 // willgrow, its best we use parent referencing
+

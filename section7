@@ -224,4 +224,10 @@ getting reviews from tours bse the parent doesnot knw abt its siblings
 
 Lecture 11:
 Implementing Simple Nested Routes:
---
+--how to create new review in the real world
+--the user id shd come from logged in user and tour id shd come from current tour
+--this shd be encodded in the URL
+
+--this is a much easier way of reading APIs for API users
+--its easier thn query strings
+--we will implement this in the tour router

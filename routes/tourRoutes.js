@@ -9,9 +9,16 @@ const tourController = require('../controllers/tourControler')
 const router = express.Router()
 // --import the protection middleware
 const authController = require('../controllers/authController')
+
+const reviewController = require('../controllers/reviewController')
+const reviewRouter = require('../routes/reviewRoutes')
+
 // using param routes
 // val is the value of parameter in question
 // router.param('id', tourController.checkID)
+
+// using the review router in tour
+router.use(':/tourId/reviews',  reviewRouter)
 
 router.route('/top-5-cheap').get(tourController.aliasTopTours, tourController.getAllTours)
 
@@ -38,5 +45,20 @@ router
          authController.restrictTo('admin', 'lead-guide'), //admin can delete lead-tour and also delete tour guide
          tourController.deleteTour)
 
+
+///////////////////////////////////////////////////////////
+/////////////nested routes
+//POST /tour/id/reviews
+//GET /tour/id/reviews
+//GET /tour/id/reviews/id_of_reviews
+
+router
+    .route('/:tourId/reviews')
+    .post(
+        authController.protect, 
+        authController.restrictTo('user'),
+        reviewController.createReview
+)
 module.exports = router
+
 
