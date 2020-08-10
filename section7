@@ -254,3 +254,7 @@ building handler factory functions delete
 -this is used to remove duplicate code
 --a factory function is a function tht returns another function wch is our handler function
 used for deleting, creating, updating
+
+Lecture 15:
+Factory Functions Update and Create
+--creating factory function for updatin and creating resources

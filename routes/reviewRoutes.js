@@ -18,9 +18,12 @@ router.route('/')
 .post(
     authController.protect, 
     authController.restrictTo('user'), 
+    reviewController.setTourUserIds, //middleware for checking if user and tour id exists
     reviewController.createReview)
 
 
 
-router.route('/:id').delete(reviewController.deleteReview)
+router.route('/:id')
+    .patch(reviewController.updateReview)
+    .delete(reviewController.deleteReview)
 module.exports = router

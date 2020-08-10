@@ -85,44 +85,10 @@ exports.getTour =  catchAsync(async (req, res, next) => {
 
 
 // --the catch async function is passed into fn wch is the functin above
-exports.createTour = catchAsync(async (req, res, next) => {
-    
-    const newTour = await Tour.create(req.body);
-  
-    res.status(201).json({
-      status: 'success',
-      data: {
-        tour: newTour
-      }
-    });
-  });
+exports.createTour =factory.createOne(Tour)
 
-// update tour function
-exports.updateTour = catchAsync(async (req, res, next) => {
-        // querying document we want to update based on id
-        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        })
-
-        
-    //    --implemet if no tour, create error
-    if(!tour) {
-        // --middeware to apperror
-        return next(new AppError('No tour found found with that ID', 404));
-    }
-         // incase the id is valid
-    // use the param middleware
-    res.status(200).json({
-        status: 'success',
-        data: {
-            // we will send an updated string for tour
-            tour
-        }
-    })
-
-   
-})
+// --update the tour
+exports.updateTour = factory.updateOne(Tour)
 
 
 exports.deleteTour = factory.deleteOne(Tour)
