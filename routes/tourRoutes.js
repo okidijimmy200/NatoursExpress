@@ -10,15 +10,30 @@ const router = express.Router()
 // --import the protection middleware
 const authController = require('../controllers/authController')
 
-const reviewController = require('../controllers/reviewController')
-const reviewRouter = require('../routes/reviewRoutes')
+// const reviewController = require('../controllers/reviewController')
+const reviewRouter = require('../routes/reviewRoutes') // import reviewRouter and not reviewController
 
 // using param routes
 // val is the value of parameter in question
 // router.param('id', tourController.checkID)
 
-// using the review router in tour
-router.use(':/tourId/reviews',  reviewRouter)
+// using the review router in tour(mounting the reviewRouter)
+router.use('/:tourId/reviews',  reviewRouter) //use review router incase it encounters a route like this
+
+
+///////////////////////////////////////////////////////////
+/////////////nested routes
+//POST /tour/id/reviews
+//GET /tour/id/reviews
+//GET /tour/id/reviews/id_of_reviews
+
+// router
+//     .route('/:tourId/reviews')
+//     .post(
+//         authController.protect, 
+//         authController.restrictTo('user'),
+//         reviewController.createReview
+// )
 
 router.route('/top-5-cheap').get(tourController.aliasTopTours, tourController.getAllTours)
 
@@ -46,19 +61,6 @@ router
          tourController.deleteTour)
 
 
-///////////////////////////////////////////////////////////
-/////////////nested routes
-//POST /tour/id/reviews
-//GET /tour/id/reviews
-//GET /tour/id/reviews/id_of_reviews
-
-router
-    .route('/:tourId/reviews')
-    .post(
-        authController.protect, 
-        authController.restrictTo('user'),
-        reviewController.createReview
-)
 module.exports = router
 
 

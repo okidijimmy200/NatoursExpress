@@ -101,9 +101,9 @@ app.use((req, res, next)  => {
 // using middleware to connect our routes
 // (mounting a new router on a route)
 // (mounting a new router on a route)
-app.use('/api/v1/tours',tourRouter );
-app.use('/api/v1/users', userRouter );
-app.use('/api/v1/reviews', reviewRouter );//mounting reviews to new path
+app.use('/api/v1/tours',tourRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter);//mounting reviews to new path
 
 
 // --router wch is implemented only if other routes have not bn implemented

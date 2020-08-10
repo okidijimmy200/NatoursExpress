@@ -231,3 +231,14 @@ Implementing Simple Nested Routes:
 --this is a much easier way of reading APIs for API users
 --its easier thn query strings
 --we will implement this in the tour router
+
+Lecture 12:
+Nested Routes with Express:
+--we will use an advanced express feature
+--the last vid we implemented simple nested  post route
+--this is a common way to do this in API design
+--the problem with this is its abit messy with duplicate code
+
+--how do we mount the review router in the tour router
+--by default each router has access to only params of their route
+--with merger params, we can have access to tour id from reviewRouter
