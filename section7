@@ -247,3 +247,10 @@ Lecture 13:
 Ading a Nested GET Endpoint
 --creating a nested end point
 we create a nested end point for the get tour section
+
+Lecture 14:
+building handler factory functions delete
+--how to build a handler factory function in order to delete review documents
+-this is used to remove duplicate code
+--a factory function is a function tht returns another function wch is our handler function
+used for deleting, creating, updating

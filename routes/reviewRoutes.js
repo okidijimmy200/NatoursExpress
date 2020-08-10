@@ -4,6 +4,7 @@ const reviewController = require('../controllers/reviewController')
 
 // require authCOntroller
 const authController = require('../controllers/authController')
+const Review = require('../models/reviewModel')
 
 const router = express.Router({mergeParams: true})  //to get access to other router in the tour
 
@@ -20,4 +21,6 @@ router.route('/')
     reviewController.createReview)
 
 
+
+router.route('/:id').delete(reviewController.deleteReview)
 module.exports = router

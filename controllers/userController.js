@@ -5,6 +5,8 @@ const User = require('../models/userModel')
 
 // import app error
 const AppError = require('../utils/appError')
+// --import handlerFactory
+const factory = require('./handlerFactory')
 
 
 ///function to filter bodyobj
@@ -94,10 +96,4 @@ exports.updateUser = (req, res) => {
         message:'this route is not yet defined'
     })
 }
-exports.deleteUser = (req, res) => {
-    // 500 --server error
-    res.status(500).json({
-        status:'error',
-        message:'this route is not yet defined'
-    })
-}
+exports.deleteUser = factory.deleteOne(User);

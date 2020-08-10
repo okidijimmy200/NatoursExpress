@@ -11,6 +11,9 @@ const catchAsync = require('../utils/catchAsync')
 
 // --importing apperror
 const AppError = require('../utils/appError')
+
+// --import handlerFactory
+const factory = require('./handlerFactory')
 // reading data from tours
 // we use JSON.parse to pass an array of JS objects
 // const tours = JSON.parse(
@@ -120,27 +123,9 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 
    
 })
-// delete tour function
-exports.deleteTour = catchAsync(async (req, res, next) => {
-        // in restapi, no data is sent to client wen there is a delete, so no need for variable
-     const tour =   await Tour.findByIdAndDelete(req.params.id)
 
-     
-    //    --implemet if no tour, create error
-    if(!tour) {
-        // --middeware to apperror
-        return next(new AppError('No tour found found with that ID', 404));
-    }
-        // incase the id is valid
-    // use the param middleware
-    // 204--means no content so we sent data as null
-    res.status(204).json({
-        status: 'success',
-        data: null
-    })
 
-    
-})
+exports.deleteTour = factory.deleteOne(Tour)
 // --function to calculate statics for our tours
 exports.getTourStats = catchAsync(async (req, res, next) => {
 
