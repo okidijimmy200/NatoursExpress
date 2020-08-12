@@ -1,7 +1,5 @@
 // const express = require('express')
 
-// --calling apifeatures
-const APIFeatures = require('../utils/apiFeatures')
 
 // importing the tour model
 const Tour = require('../models/tourModel ')
@@ -29,59 +27,9 @@ exports.aliasTopTours = (req, res, next) => {
 
 
 // creating a new function for tours
-exports.getAllTours = catchAsync(async (req, res, next) => {
-
-   
-        console.log(req.query)
-   
-     //EXEUTE THE QUERY
-        // --if we use await, thereis no way to perform sorting or pagination
-        const features = new APIFeatures(Tour.find(), req.query).filter().sort().limitFields().paginate()
-        const tours = await features.query
-
-    //SEND RESPONSE
-    // send back all the tours
-    res.status(200).json({
-        status: 'success',
-        // sending requestTime to tour
-        // requestedAt: req.requestTime,
-        // to have results of array(this shows us the number of items available)
-        results: tours.length,
-        data:{
-            // this contains the response tht we want to send
-            tours
-        }
-    })    
-   
-  
-    
-})
+exports.getAllTours = factory.getAll(Tour)
 // creating function for getTour
-exports.getTour =  catchAsync(async (req, res, next) => {
-    //add populate to query and field to populate from our models
-    // const tour = await Tour.findById(req.params.id).populate('guides')
-    // --we can also create object for populate fn
-    const tour = await Tour.findById(req.params.id).populate('review')
-
-    //    --implemet if no tour, create error
-    if(!tour) {
-        // --middeware to apperror
-        return next(new AppError('No tour found found with that ID', 404));
-    }
-   
-    //    --similar to
-    // Tour.findOne({_id: req.params.id})
-
-         // send back all the tours
-    res.status(200).json({
-        status: 'success',
-        data:{
-            // this contains the response tht we want to send
-            tour
-        }
-    })
-  
-})
+exports.getTour = factory.getOne(Tour, {path: 'reviews'}) //path is the property we want to fields
 
 
 // --the catch async function is passed into fn wch is the functin above

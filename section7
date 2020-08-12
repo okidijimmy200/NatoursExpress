@@ -258,3 +258,12 @@ used for deleting, creating, updating
 Lecture 15:
 Factory Functions Update and Create
 --creating factory function for updatin and creating resources
+
+Lecture 16:
+Factory FUnctions Reading:
+--creating factories for getting document
+--we will start with getOne
+--the challenge with the getOne in tour is tht it has a populate function
+--we use an option in the factory function to handle this situation
+
+--we then do get all factory function

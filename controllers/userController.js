@@ -20,23 +20,7 @@ const filterObj =(obj, ...allowedFields) => {
     return newObj
 }
 
-// creating a function for users
-exports.getAllUsers = catchAsync(async(req, res, next) => {
 
-    const users = await User.find();
-    // send back all the users
-    res.status(200).json({
-        status: 'success',
-        // sending requestTime to tour
-        // requestedAt: req.requestTime,
-        // to have results of array(this shows us the number of items available)
-        results: users.length,
-        data:{
-            // this contains the response tht we want to send
-            users
-        }
-    })
-})
 
 //////////////////updating the currently authenticated User
 exports.updateMe = catchAsync(async (req, res, next) => {
@@ -75,20 +59,17 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 })
 
-exports.getUser = (req, res) => {
-    // 500 --server error
-    res.status(500).json({
-        status:'error',
-        message:'this route is not yet defined'
-    })
-}
 exports.createUser = (req, res) => {
     // 500 --server error
     res.status(500).json({
         status:'error',
-        message:'this route is not yet defined'
+        message:'this route is not defined! Please use signup'
     })
 }
+
+// creating a function for users
+exports.getAllUsers = factory.getAll(User)
+exports.getUser = factory.getOne(User)
 // donot update password with this
 exports.updateUser =  factory.updateOne(User) // this is for only admin and only updating data tht is not password
 exports.deleteUser = factory.deleteOne(User);
