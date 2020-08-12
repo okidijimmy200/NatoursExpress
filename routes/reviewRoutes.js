@@ -13,10 +13,14 @@ const router = express.Router({mergeParams: true})  //to get access to other rou
 //GET /tour/id/reviews
 //GET /tour/id/reviews/id_of_reviews
 // --all these routes get into the review handler
+
+
+// --protecting reviews
+router.use(authController.protect)
+
 router.route('/')
 .get(reviewController.getAllReviews)
-.post(
-    authController.protect, 
+.post( 
     authController.restrictTo('user'), 
     reviewController.setTourUserIds, //middleware for checking if user and tour id exists
     reviewController.createReview)
@@ -25,6 +29,6 @@ router.route('/')
 
 router.route('/:id')
     .get(reviewController.getReview)
-    .patch(reviewController.updateReview)
-    .delete(reviewController.deleteReview)
+    .patch(authController.restrictTo('user', 'admin'), reviewController.updateReview) //restricted to user & admin
+    .delete(authController.restrictTo('user', 'admin'), reviewController.deleteReview) //restricted to user & admin
 module.exports = router

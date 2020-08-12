@@ -17,19 +17,31 @@ router.post('/login', authController.login)
 router.post('/forgotPassword', authController.forgotPassword)
 router.patch('/resetPassword/:token', authController.resetPassword)
 
+// router middleware to be used
+// !important
+//////(to protect all routes tht come after this middleware)///////
+router.use(authController.protect)
+
 // change password
-router.patch('/updateMyPassword', authController.protect, authController.updatePassword)
+router.patch('/updateMyPassword', 
+             authController.updatePassword)
 
 
 // route for getMe
-router.get('/me', authController.protect, userController.getMe, userController.getUser)
+router.get('/me', 
+        userController.getMe, 
+        userController.getUser)
 
 // change user data
-router.patch('/updateMe', authController.protect, userController.updateMe)
+router.patch('/updateMe',  
+        userController.updateMe)
 // delete user
-router.delete('/deleteMe', authController.protect, userController.deleteMe)
+router.delete('/deleteMe',
+            userController.deleteMe)
 
 // route for users
+// --these actions shd be used by admin only
+router.use(authController.restrictTo('admin'))
 router
     .route('/')
     .get(userController.getAllUsers)

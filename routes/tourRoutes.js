@@ -40,22 +40,32 @@ router.route('/top-5-cheap').get(tourController.aliasTopTours, tourController.ge
 // --router for stats
 router.route('/tour-stats').get(tourController.getTourStats)
 // --router to get busiest month,we need to pass the year
-router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan)
+router.route('/monthly-plan/:year')
+.get(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide', 'guide'),
+    tourController.getMonthlyPlan)
 // specifying the route we want
 
 
 router
     .route('/')
-    .get(authController.protect, tourController.getAllTours) //protecting the getAlltours route
+    .get( tourController.getAllTours) //protecting the getAlltours route
     // implementing multiple requests on the tour
-    .post(tourController.createTour);
+    // --restricting changing and posting to lead guides and admin
+    .post(authController.protect, 
+        authController.restrictTo('admin', 'lead-guide'), 
+        tourController.createTour);
 
 // other routes
 // to implement the tour controller
 router
     .route('/:id')
     .get(tourController.getTour)
-    .patch(tourController.updateTour)
+    .patch(
+        authController.protect,
+        authController.restrictTo('admin', 'lead-guide'),
+        tourController.updateTour)
     .delete(authController.protect,
          authController.restrictTo('admin', 'lead-guide'), //admin can delete lead-tour and also delete tour guide
          tourController.deleteTour)

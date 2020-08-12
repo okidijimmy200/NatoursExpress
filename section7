@@ -272,3 +272,18 @@ Lecture 17:
 Adding a me EndPoint:
 --its a gd practice to add a /me endpoint in our API
 --where a user can retrieve his own data
+
+Lecture 18:
+Adding Missing Authentication and Authentication:
+--we need to fix some Authentication and authorization in our resources.
+--this is usually defined on the Routes
+--the tour API is what we want to interact ith the outside world
+ie we want our tour company to interact with other travel sites.
+--so how do we make sure it embedds it in their website
+--so no authorization on getAll tours route
+
+--to edit and delete actions of tours, we want the lead guides to be ble to do this
+--the protect function on the routes runs as a middleware wch always runs in sequence
+
+--we then protect the reviews where we dont allow anyonw who is not logged in to delete reviews
+
