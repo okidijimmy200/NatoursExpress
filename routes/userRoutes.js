@@ -20,6 +20,10 @@ router.patch('/resetPassword/:token', authController.resetPassword)
 // change password
 router.patch('/updateMyPassword', authController.protect, authController.updatePassword)
 
+
+// route for getMe
+router.get('/me', authController.protect, userController.getMe, userController.getUser)
+
 // change user data
 router.patch('/updateMe', authController.protect, userController.updateMe)
 // delete user

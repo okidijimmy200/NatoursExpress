@@ -267,3 +267,8 @@ Factory FUnctions Reading:
 --we use an option in the factory function to handle this situation
 
 --we then do get all factory function
+
+Lecture 17:
+Adding a me EndPoint:
+--its a gd practice to add a /me endpoint in our API
+--where a user can retrieve his own data

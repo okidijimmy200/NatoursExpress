@@ -67,6 +67,12 @@ exports.createUser = (req, res) => {
     })
 }
 
+
+// --user getMe function
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id
+    next();
+}
 // creating a function for users
 exports.getAllUsers = factory.getAll(User)
 exports.getUser = factory.getOne(User)
