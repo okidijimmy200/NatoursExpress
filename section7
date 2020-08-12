@@ -287,3 +287,16 @@ ie we want our tour company to interact with other travel sites.
 
 --we then protect the reviews where we dont allow anyonw who is not logged in to delete reviews
 
+
+Lecture 19:
+Importing Review and User Data:
+--importing data on reviews and users from the data
+--we update dev-data import script
+
+**********node ./dev-data/data/import-dev-data.js --delete****************
+to delete data in the database
+
+**********node ./dev-data/data/import-dev-data.js --import****************
+import data
+--we need to turn off vallidation for password at the import dev data
+--we also turn off password encryption to imprt the files
