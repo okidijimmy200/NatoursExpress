@@ -335,6 +335,11 @@ Lecture 22:
 Calculating Average Ratings on Tour Part 2:
 --when a review is updated or deleted.
 
+Lecture 23:
+Preventing Duplicate Reviews
+--how to prevent users from writing multiple reviews for the same tour
+--each user shd review eah tour once
+--we need both user and tour to be unique
 
 
 

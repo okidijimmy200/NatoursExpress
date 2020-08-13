@@ -37,6 +37,11 @@ const reviewSchema = new mongoose.Schema({
 }
 )
 
+// removing duplicate reviews
+reviewSchema.index({ tour: 1, user: 1},{
+    unique: true // both the user and tour have to be unique
+})
+
 //populate schema
 reviewSchema.pre(/^find/, function(next) {
     // this.populate({
