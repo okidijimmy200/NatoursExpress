@@ -317,6 +317,22 @@ look at the docs one by one
 --the process thn becomes very efficient
 --we perform query for fields tht we query very often ie price
 
+Lecture 21:
+Calculating Average Ratings on Tour Part 1:
+--we can store the average ratings and the number of ratings on each tour so tht we dont need to calculate the average each time we 
+query for all the tours
+-ie if we want to show a summary of reviews for our tour
+--we will calc avg rating an number of ratings of a tour each time a new review is added to tht tour or incase a review is updated or deleted.
+--we will create a fn in review wch will take in a tourID and calculate the average ratings and the number of ratings tht exist in tht
+tour collection
+--the function thn updates the corresponding tour document
+--we thn use tht function we will use middleware to basically call this function each time there is a new review or one is updated or deleted
+
+--so when we create a review from tour,it shows us the review on the console minus the latest review jst send
+--this then calculates the average ratings
+
+
+
 --we query the tourModel index
 --wen we getAll query in postman, we see tht 3 docs were examined and
 --we can give unique to indexes
