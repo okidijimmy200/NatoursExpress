@@ -331,6 +331,11 @@ tour collection
 --so when we create a review from tour,it shows us the review on the console minus the latest review jst send
 --this then calculates the average ratings
 
+Lecture 22:
+Calculating Average Ratings on Tour Part 2:
+--when a review is updated or deleted.
+
+
 
 
 --we query the tourModel index

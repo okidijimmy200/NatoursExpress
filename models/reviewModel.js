@@ -76,12 +76,22 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
             }
         }
     ])
-    console.log(stats)
+    // console.log(stats)
     // --persiting calculated statistics in the tour doc
-    await Tour.findByIdAndUpdate(tourId, {
-        ratingsQuantity: stats[0].nRating,
-        ratingsAverage: stats[0].avgRating
-    })
+    // --this code needs to be executed incase we have some info in our stats array
+    if (stats.length > 0) {
+        await Tour.findByIdAndUpdate(tourId, {
+            ratingsQuantity: stats[0].nRating,
+            ratingsAverage: stats[0].avgRating
+        })
+    }
+    else {
+        await Tour.findByIdAndUpdate(tourId, {
+            ratingsQuantity: 0,
+            ratingsAverage: 4.5
+        })
+    }
+    
 
 }
 
@@ -92,6 +102,19 @@ reviewSchema.post('save', function(){
     this.constructor.calcAverageRatings(this.tour)
 });
 
+// NB: pre middleware uses next whilw post doesnot
+
+// --calculating review stat when a review is updated or deleted
+reviewSchema.pre(/^findOneAnd/, async function(next) {
+    this.r = await this.findOne()
+    // console.log(this.r)
+    next()
+})
+// --we then use post
+reviewSchema.post(/^findOneAnd/, async function() {
+    // when review is updated
+    await this.r.constructor.calcAverageRatings(this.r.tour)// passing data from pre to post middleware
+})
 
 const Review = mongoose.model('Review', reviewSchema)
 
