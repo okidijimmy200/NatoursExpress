@@ -300,3 +300,32 @@ to delete data in the database
 import data
 --we need to turn off vallidation for password at the import dev data
 --we also turn off password encryption to imprt the files
+
+Lecture 20:
+Improving Read Performance with indexes
+--importance of index and how to generate them
+-we can get a couple of statics abt the query itself
+--we use the explain method in getAll query in factory wch gives examines 9 documents
+this is not efficient at all bse it affects the read performance esp with big applications
+--this can best be solved using indexes
+--we cn create indexes on specific fields on a collection
+--ie monogd automatically creates index for ID
+
+--in mongod compass, we do have an index array
+--so whenever monoodb are queried by ID, monogodb will search tht ordered list instead of searching the whole collection and
+look at the docs one by one
+--the process thn becomes very efficient
+--we perform query for fields tht we query very often ie price
+
+--we query the tourModel index
+--wen we getAll query in postman, we see tht 3 docs were examined and
+--we can give unique to indexes
+--the name fields attr is also included bse we set the name field to be unique
+--this is a single field index
+{{URL}}api/v1/tours?price[lt]=1000
+
+--we also have  a compund field index
+{{URL}}api/v1/tours?price[lt]=1000&ratingsAverage[gt]=4
+
+--how do we decide wchh fields to index:
+--we study the access path of our prog and determine wch systems are queried the most

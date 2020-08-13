@@ -155,6 +155,14 @@ tourSchema.virtual('durationWeeks').get(function() {
     return this.duration / 7
 })
 
+// performing index on price
+// single field index
+// tourSchema.index({price: 1}) // 1 ascending order, -1 descending order
+// compund field index
+tourSchema.index({price: 1, ratingsAverage: -1})
+
+// index for slug
+tourSchema.index({slug: 1})
 // --virtual populate
 tourSchema.virtual('review', { //review--name of fieild
     ref: 'Review', //name of model to reference

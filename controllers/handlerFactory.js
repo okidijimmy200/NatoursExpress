@@ -111,8 +111,14 @@ exports.getAll = Model => catchAsync(async (req, res, next) => {
 
  //EXEUTE THE QUERY
     // --if we use await, thereis no way to perform sorting or pagination
-    const features = new APIFeatures(Model.find(filter), req.query).filter().sort().limitFields().paginate()
+    const features = new APIFeatures(Model.find(filter), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate()
+    // adding an explain method
     const doc = await features.query
+    // const doc = await features.query.explain()
 
 //SEND RESPONSE
 // send back all the doc
