@@ -157,4 +157,35 @@ exports.getMonthlyPlan = catchAsync(async( req, res,next) => {
 
 })
 
+// we cld also have dne it like tours-distance?distance=234&center=-50,45&unit=mi
+// or tours-within/233/center/2.778244, 32.292192/units/mi
+// for getToursWithin
+exports.getToursWithin =  catchAsync(async(req, res, next) => {
+    // to get all our data at once using destructuring
+    const { distance, latlng, unit} = req.params //all this comes from req.params
+    // var for lat and lng
+    const [lat, lng] = latlng.split(',')
 
+    // defining the radius wch is converted to radians wch we get by dividing our distance by radius of earth
+    const radius = unit === 'mi' ? distance / 3962.3 : distance / 6378.1 // to get radian in km or miles
+
+    // test if lat and lng is specified
+    if(!lat || !lng) {
+        next(new AppError('Please provide latitude and longitude in the format lat, lng', 400))
+    }
+    // --we want to query for start location bse its where each tour starts
+    // $geoWithin--finds docs within a certain geometry wch starts at given distance within a sphere of lat and lng
+    const tours = await Tour.find({ 
+        startLocation: {$geoWithin:
+            // NB: we mst specify lng then lat not the standard lat and lng way
+        {$centerSphere: [[lng,lat], radius]}} }) //specify filter obj
+
+    res.status(200).json({
+        status: 'success',
+        results: tours.length,
+        data: {
+            data: tours
+        }
+    })
+}
+)

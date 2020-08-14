@@ -162,6 +162,8 @@ tourSchema.virtual('durationWeeks').get(function() {
 // compund field index
 tourSchema.index({price: 1, ratingsAverage: -1})
 
+// --index to start Location
+tourSchema.index({startLocation: '2dsphere'}) // for geospatial, its a 2D spherical index
 // index for slug
 tourSchema.index({slug: 1})
 // --virtual populate

@@ -341,6 +341,14 @@ Preventing Duplicate Reviews
 --each user shd review eah tour once
 --we need both user and tour to be unique
 
+Lecture 24:
+Geospatial Queries FInding TOurs within Radius:
+--we will geospatial queries to implement a search functionality for tours withib a certain distance of a specified point
+--ie you want to knw wch tour starts at a certain distance from you
+--we use geospatial  queries for this
+--to get coordinates, go to maps in google search
+
+--a geospatial query works similar to an actual query
 
 
 --we query the tourModel index

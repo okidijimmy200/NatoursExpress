@@ -47,6 +47,14 @@ router.route('/monthly-plan/:year')
     tourController.getMonthlyPlan)
 // specifying the route we want
 
+// routes for geospatial
+// --distance---ie 25okm, center--ur position, latlng--co-ordiantes 
+// --unit--either km or miles this is a standard way of specifying urls with alot of options
+router
+    .route('/tours-within/:distance/center/:latlng/unit/:unit')
+    .get( tourController.getToursWithin)
+// we cld also have dne it like tours-within?distance=234&center=-50,45&unit=mi
+
 
 router
     .route('/')
