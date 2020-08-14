@@ -56,6 +56,9 @@ router
 // we cld also have dne it like tours-within?distance=234&center=-50,45&unit=mi
 
 
+// Geospatial Aggregation Calculating Distances
+router.route('/distances/:latlng/unit/:unit')
+    .get(tourController.getDistances)
 router
     .route('/')
     .get( tourController.getAllTours) //protecting the getAlltours route

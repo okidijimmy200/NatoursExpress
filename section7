@@ -350,6 +350,11 @@ Geospatial Queries FInding TOurs within Radius:
 
 --a geospatial query works similar to an actual query
 
+Lecture 25:
+Geospatial Aggregation Calculating Distances:
+--Using geospatial Aggregation to calculate distances to all tours from a certain pt
+--we define the route
+
 
 --we query the tourModel index
 --wen we getAll query in postman, we see tht 3 docs were examined and

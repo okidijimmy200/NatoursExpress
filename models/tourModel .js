@@ -234,12 +234,12 @@ tourSchema.pre(/^find/, function(next){
     next()
 })
 //  AGGREGATION MIDDLEWARE
-tourSchema.pre('aggregate', function(next) {
-    //  we add a match at the beginning of the pipeline array
-    this.pipeline().unshift({$match: {secretTour: {$ne: true}}})
-    console.log(this.pipeline())
-    next()
-})
+// tourSchema.pre('aggregate', function(next) {
+//     //  we add a match at the beginning of the pipeline array
+//     this.pipeline().unshift({$match: {secretTour: {$ne: true}}})
+//     console.log(this.pipeline())
+//     next()
+// })
 
 // creating a model for tour
 const Tour = mongoose.model('Tour', tourSchema);

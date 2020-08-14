@@ -189,3 +189,47 @@ exports.getToursWithin =  catchAsync(async(req, res, next) => {
     })
 }
 )
+
+exports.getDistances = catchAsync( async (req, res, next) => {
+    // to get all our data at once using destructuring
+    const {latlng, unit} = req.params //all this comes from req.params
+    // var for lat and lng
+    const [lat, lng] = latlng.split(',')
+
+    // convert to miles
+    const multiplier = unit === 'mi' ? 0.000621371 : 0.001 // /1000
+
+    // test if lat and lng is specified
+    if(!lat || !lng) {
+        next(new AppError('Please provide latitude and longitude in the format lat, lng', 400))
+    }
+    
+    // --performing the agg pipelinf
+    const distances = await Tour.aggregate([
+        {
+            $geoNear: { //this is always the first stage
+                near: { // pt to calc distances
+                    type: 'Point',
+                    coordinates: [lng * 1, lat * 1]
+                },
+                distanceField: 'distance', //where all calculated distance will be stored
+                // making distance into km
+                distanceMultiplier: multiplier  
+            }
+        },
+        {
+            // --fields we want tokeep
+        $project: {
+            distance: 1,
+            name: 1
+        }
+        }
+    ])
+    
+    res.status(200).json({
+        status: 'success',
+        data: {
+            data: distances
+        }
+    })
+})
