@@ -355,6 +355,15 @@ Geospatial Aggregation Calculating Distances:
 --Using geospatial Aggregation to calculate distances to all tours from a certain pt
 --we define the route
 
+Lecture 26:
+Creating API documentation Using Postman:
+--we can create doc for our API in postman
+--this is very important for communication with our team members
+
+--at the login endpoint, we expose our password so we need to create an env variable to hold the password
+--so we move to managing env var and we add password
+
+--my users not entering password
 
 --we query the tourModel index
 --wen we getAll query in postman, we see tht 3 docs were examined and
