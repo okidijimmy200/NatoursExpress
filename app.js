@@ -117,6 +117,18 @@ app.get('/', (req, res) => {
     })
     
 }) // base pug route
+
+app.get('/overview', (req,res) => {
+    res.status(200).render('overview', {
+        title: 'All Tours'
+    })
+})
+// for specific tour
+app.get('/tour', (req,res) => {
+    res.status(200).render('tour', {
+        title: 'The forest hiker'
+    })
+})
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);//mounting reviews to new path

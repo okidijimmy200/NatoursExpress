@@ -26,3 +26,7 @@ INCLUDING FILES INTO PUG TEMPLATES:
 --adding one template into another template
 --add pug beautify using vs code
 --then ctrl-A, then ctrl-shift-p--pug beautify 
+
+Lecture 6:
+Extending Our Base Template with Blocks
+--more complex features of pug with extend
