@@ -9,3 +9,9 @@ Setting Up pug in express:
 --pug is a templates engine wch wu use to fill our data.
 --we need to tell express wat template engine we will use
 ***********npm i pug***********************
+
+Lecture 3:
+First steps with pug
+--simple wide space sentsive syntax for writing html
+--we only write name and html here
+-we can use regular html in pug

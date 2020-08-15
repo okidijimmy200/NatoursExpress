@@ -110,7 +110,12 @@ app.use((req, res, next)  => {
 // (mounting a new router on a route)
 // (mounting a new router on a route)
 app.get('/', (req, res) => {
-    res.status(200).render('base')
+    res.status(200).render('base', {
+        // -pass data into template
+    tour: "the forest hiker",
+    user:"jonas"
+    })
+    
 }) // base pug route
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users', userRouter);

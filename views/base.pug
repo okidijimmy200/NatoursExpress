@@ -1,1 +1,19 @@
-h1 The park camper
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel='stylesheet', href='css/style.css')
+        link(rel="shortcut icon", type='image/png' href="img/favicon.png")
+        title Natours | #{tour}
+        //- {} interpolation
+    body
+        // using the variable
+        h1= tour 
+        //- to comment out tag not to be used in pug, we use pug
+        h2= user.toUpperCase()
+        h1 The park camper
+        //- unbuffered code is code tht is not going to add something on the output
+
+        - const x = 9;
+        h2= 2*x
+        p this is jst some text
