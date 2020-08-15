@@ -1,3 +1,5 @@
+// --import path
+const path = require('path')
 const fs = require('fs')
 const express = require('express')
 // importing morgan
@@ -26,7 +28,13 @@ const tourRouter = require('./routes/tourRoutes')
 // importing userRouter
 const userRouter = require('./routes/userRoutes')
 
+
 const app = express();
+
+// --setting up pug
+app.set('view engine', 'pug')
+// --path from inbuild express to avoid scenarios of /
+app.set('views', path.join(__dirname, 'views')) // or pug templates r called views
 
 // using the GLOBAL middleware
 
@@ -101,6 +109,9 @@ app.use((req, res, next)  => {
 // using middleware to connect our routes
 // (mounting a new router on a route)
 // (mounting a new router on a route)
+app.get('/', (req, res) => {
+    res.status(200).render('base')
+}) // base pug route
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);//mounting reviews to new path
