@@ -15,3 +15,14 @@ First steps with pug
 --simple wide space sentsive syntax for writing html
 --we only write name and html here
 -we can use regular html in pug
+
+Lecture 4:
+Creating Our Base Template:
+--template based on other templates
+--header and footer
+
+Lecture 5:
+INCLUDING FILES INTO PUG TEMPLATES:
+--adding one template into another template
+--add pug beautify using vs code
+--then ctrl-A, then ctrl-shift-p--pug beautify 
