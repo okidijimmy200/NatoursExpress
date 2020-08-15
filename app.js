@@ -28,7 +28,8 @@ const tourRouter = require('./routes/tourRoutes')
 // importing userRouter
 const userRouter = require('./routes/userRoutes')
 
-
+// importing viewRouter
+const viewRouter = require('./routes/viewRoutes')
 const app = express();
 
 // --setting up pug
@@ -109,26 +110,7 @@ app.use((req, res, next)  => {
 // using middleware to connect our routes
 // (mounting a new router on a route)
 // (mounting a new router on a route)
-app.get('/', (req, res) => {
-    res.status(200).render('base', {
-        // -pass data into template
-    tour: "the forest hiker",
-    user:"jonas"
-    })
-    
-}) // base pug route
-
-app.get('/overview', (req,res) => {
-    res.status(200).render('overview', {
-        title: 'All Tours'
-    })
-})
-// for specific tour
-app.get('/tour', (req,res) => {
-    res.status(200).render('tour', {
-        title: 'The forest hiker'
-    })
-})
+app.use('/', viewRouter) // this goes straighr to the review router
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);//mounting reviews to new path

@@ -30,3 +30,8 @@ INCLUDING FILES INTO PUG TEMPLATES:
 Lecture 6:
 Extending Our Base Template with Blocks
 --more complex features of pug with extend
+
+Lecture 7:
+Setting up the project structure:
+--restructuring our code into the MVC arch
+
