@@ -41,3 +41,7 @@ Building the tours overview page:
 Lecture 9:
 Building the tour overview 2
 --filing in the card data for each tour card
+
+Lecture 10:
+Building the tour page 1:
+--building the tour detail page with mixins nd conditionals in pug
