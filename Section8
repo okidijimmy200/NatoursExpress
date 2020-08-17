@@ -49,3 +49,34 @@ Building the tour page 1:
 Lecture 11:
 Building the tour page 2:
 --we use loop to loop through all guides associated with a tour
+
+Lecture 12:
+Including a map with MapBox part 1:
+
+Lecture 13:
+Including a mp with mapbox 2:
+--we checkout mapbox instead of google maps
+--mapbox is an alternative to google maps
+--we create an account
+--click the JS web
+--we then use the CDN
+--then we copy the js code in the next btn into our file
+into our mapbox js file
+--we move back to out account to generate the acces token we need
+--we move back to our mapbox design studio(start designing a map)
+-we create new styles
+-we can use any bt we will go for the light styles
+--create a custom name for the styles
+--we move back to the share and use option and click use option
+--we copy the customed styled URl into our mapbox
+
+**we can also change the default location of our map by using center
+
+-we can checkout the mapbox js documentation
+
+--we want the map to automatically figure out the positions of the tours based on
+the json location pts
+--we put all the locations on the tour on the map and the map automatically wch portion
+of the map it shd display inorder to fit these pts correctly
+
+-// we do hve acustom marker wch is not from mapbox and we can design it

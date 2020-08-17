@@ -23,7 +23,7 @@ exports.getTour =  catchAysnc(async(req,res) => {
     // 2) Build our template
     // 3) Render template using data from 1
     res.status(200).render('tour', {
-        title: 'The forest hiker',
+        title: `${tour.name} Tour`,
         tour
     })
 })
