@@ -14,7 +14,7 @@ exports.getOverview = catchAysnc( async(req,res) => {
     })
 })
 
-exports.getTour =  catchAysnc(async(req,res) => {
+exports.getTour =  catchAysnc(async(req,res, next) => {
     // 1) get the data for the requested tour including reviews and guides
     const tour = await Tour.findOne({slug: req.params.slug}).populate({
         path: 'reviews',
@@ -27,3 +27,11 @@ exports.getTour =  catchAysnc(async(req,res) => {
         tour
     })
 })
+
+// login controller
+exports.getLoginForm = (req, res) => {
+    // create login template
+    res.status(200).render('login', {
+        title: 'log into your account'
+    })
+}
