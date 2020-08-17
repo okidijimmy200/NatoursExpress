@@ -45,3 +45,7 @@ Building the tour overview 2
 Lecture 10:
 Building the tour page 1:
 --building the tour detail page with mixins nd conditionals in pug
+
+Lecture 11:
+Building the tour page 2:
+--we use loop to loop through all guides associated with a tour

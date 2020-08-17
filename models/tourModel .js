@@ -167,7 +167,7 @@ tourSchema.index({startLocation: '2dsphere'}) // for geospatial, its a 2D spheri
 // index for slug
 tourSchema.index({slug: 1})
 // --virtual populate
-tourSchema.virtual('review', { //review--name of fieild
+tourSchema.virtual('reviews', { //review--name of fieild
     ref: 'Review', //name of model to reference
     // specify the name of the fields to connect to the dataset
     foreignField: 'tour', //tour field from the review field model

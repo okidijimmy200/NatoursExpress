@@ -503,6 +503,7 @@
   .section-pictures {
     display: -webkit-box;
     display: -ms-flexbox;
+    height: 110%;
     display: flex;
     clip-path: polygon(
       0 var(--section-rotate),
