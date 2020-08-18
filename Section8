@@ -83,3 +83,29 @@ of the map it shd display inorder to fit these pts correctly
 
 Lecture 14:
 Building the Login Screen:
+--implemeted the pug login route and controller
+
+Lecture 15:
+Logging in Users with Our API:
+--using the login API from our prev section
+--we will allow users to log into our website by performing an HTTP request, AJAX call
+--we do http request to login endpoint we created earlier on
+--the API sends a cookie wch automatically gets stored in the browser and automatically gets sent gets sent
+back with each subsequent request
+--this is important for making authentication system work
+--we will b working on the client side Js code
+--we connect the client side with the server side using axios package.
+
+--we are able to then see the cookie if we perform the connection wch shows us the jwt
+--the browser sends this cookie along with any other request
+
+--we install a middleware in express to get access to cookies
+
+**********npm i cookie-parser*************
+--this passes the cookie from the incoming requests
+
+--we can use cookie to protect our route
+-we add cookie in authControler
+
+--we can access tokens from headers in postman and also cookies from the browser cookies
+

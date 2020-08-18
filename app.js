@@ -30,6 +30,9 @@ const userRouter = require('./routes/userRoutes')
 
 // importing viewRouter
 const viewRouter = require('./routes/viewRoutes')
+
+// cookie parser to handle incoming requests from client
+const cookieParser = require('cookie-parser')
 const app = express();
 
 // --setting up pug
@@ -61,6 +64,9 @@ app.use('/api', limiter) // this affects all routes tht start with api
 // using middleware
 app.use(express.json({ limit: '10kb'}))
 
+// cookie parser middleware
+app.use(cookieParser())
+
 
 // --cleaning the data(data sanitization against nosql query injections)
 
@@ -68,6 +74,7 @@ app.use(mongoSanitize()) // this filters out $ and dots
 // --cleaning the data(data sanitization against XSS attacks)
 
 app.use(xss()) //clean user from html malicious code
+
 
 
 // --hpp
@@ -102,7 +109,7 @@ app.use(express.static(`${__dirname}/public`))
 app.use((req, res, next)  => {
     // adding current time to the request and onverting it to string
     req.requestTime = new Date().toISOString(); 
-    // console.log(req.headers) // --logging the headers   
+    console.log(req.cookies) // --logging the cookies to the console   
     next();
 })
 
