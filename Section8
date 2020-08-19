@@ -119,3 +119,32 @@ Logging in Users with Our API part 2:
 
 --we implement alerts for the login successfully and the incorrect password or email
 --we then redirect the user once successfully loggedin to the homepage
+
+Lecture 17:
+Logging in Users with Our API:
+--implementing an alert for when the user successfully logs in
+--we create a new file for alert 
+--we shd have one large js file instead of all the small js code
+--we use a js bundler called parsel
+
+*****************npm i parcel-bundler@1 --save-dev************
+
+--we  create the watch in package.json form
+-- we then run the npm run 
+
+******************npm run watch:js***********
+
+--the indexjs file gets data from the client side
+
+--we need to install axios
+*******npm i axios***********
+
+--we then install apolyfill we make new js features run in older browserw
+***npm i @babel/polyfill*********
+
+
+--there is a prob running mapbox library with parcel
+
+--we then create the alerts
+
+--we create a show alerts function 

@@ -2,9 +2,10 @@
 
 // getting access to location from server side
 
-const locations = JSON.parse(document.getElementById('map').dataset.locations)
-console.log(locations)
 
+
+export const displayMap = (locations) => {
+     
 mapboxgl.accessToken = 'pk.eyJ1IjoiamltbXlqb25lc29raWRpIiwiYSI6ImNrZHk4anE3NjB2eWEyeW94Zm1iZ2ZqYnMifQ.ruP0R6CCf0vK4VYBS7X6SA';
 var map = new mapboxgl.Map({
     container: 'map',
@@ -59,3 +60,4 @@ map.fitBounds(bounds, {
     right: 100
     }
 })
+}

@@ -120,7 +120,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     // 4) Check if user changed password after Token was issued
     // (we create an instance method wch is available on all the models of the document in userModel)
     // iat--issued at
-    if(freshUser.changePasswordAfter(decoded.iat)){
+    if(freshUser.changedPasswordAfter(decoded.iat)){
         // --if password is changed, we get an error
         return next(new AppError('User recently changed the password! please login again.', 401))
     };
