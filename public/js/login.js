@@ -5,7 +5,6 @@
 
 // create the login function
 const login = async (email,password) => {
-    console.log(email, password)
     try {
          // we use axios for doing this
     const res =  await axios({
@@ -16,10 +15,19 @@ const login = async (email,password) => {
             password
         }
     })
-    console.log(res)
+    // sending alert incase the password or email is correct
+    if(res.data.status === 'Success'){
+        alert('Logged in successfully ')
+        // --load the front page
+        window.setTimeout(() => {
+            location.assign('/')
+        }, 1500)
+    }
+    // console.log(res)
     }
     catch(err) {
-        console.log(err.response.data) //this gives us the same code we have bn seeing from postman
+        // console.log(err.response.data) //this gives us the same code we have bn seeing from postman
+        alert(err.response.data.message)
     }
    
 }

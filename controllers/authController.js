@@ -26,8 +26,9 @@ const createSendToken = (user, statusCode, res) => {
        // --using the JWT(payload, secret)
        const token = signToken(user._id )
        const cookieOptions = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
-        httpOnly: true // cookie cant be modified in the browser
+       expires: new Date(
+           Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+       httpOnly: true // cookie cant be modified in the browser
     };
     // --to perform secure to true in prod only
     if(process.env.NODE_ENV === 'production') cookieOptions.secure = true //secure: true, //cookie will be sent only on https
@@ -37,7 +38,7 @@ const createSendToken = (user, statusCode, res) => {
 
        ////////////send a cookie
        res.cookie('jwt', token, cookieOptions )
-       // sendnew user to client
+       // send new user to client
        res.status(statusCode).json({
            status: 'Success',
            token, //sending token to client
@@ -128,6 +129,51 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = freshUser; //place the user data on request
     next();
 });
+
+// middleware to check if the user is loggedin or not
+// only for rendered pages and there will be no errors
+// NB: for our rendered(client website), the token will only be sent using cookie and never the authorization header
+
+exports.isLoggedIn = async (req, res, next) => {
+    if (req.cookies.jwt) {
+      try {
+        // 1) verify token
+        const decoded = await promisify(jwt.verify)(
+          req.cookies.jwt,
+          process.env.JWT_SECRET
+        );
+  
+        // 2) Check if user still exists
+        const currentUser = await User.findById(decoded.id);
+        if (!currentUser) {
+          return next();
+        }
+  
+        // 3) Check if user changed password after the token was issued
+        if (currentUser.changedPasswordAfter(decoded.iat)) {
+          return next();
+        }
+  
+        // THERE IS A LOGGED IN USER
+        res.locals.user = currentUser;
+        return next();
+      } catch (err) {
+        return next();
+      }
+    }
+    next();
+  };
+
+///////////////////restrict access to
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => { //func gets access to the roles
+        // roles is an array ['admin', 'lead-guide'], role=user
+        if(!roles.includes(req.user.role)){
+            return next(new AppError('you donot have permission to perform this action', 403)) //403--forbidden
+        }
+        next();
+    }
+}
 
 
 //////////for forgotten passwords
@@ -224,14 +270,3 @@ await user.save();
     createSendToken(user, 200, res)
     
 })
-
-///////////////////restrict access to
-exports.restrictTo = (...roles) => {
-    return (req, res, next) => { //func gets access to the roles
-        // roles is an array ['admin', 'lead-guide'], role=user
-        if(!roles.includes(req.user.role)){
-            return next(new AppError('you donot have permission to perform this action', 403)) //403--forbidden
-        }
-        next();
-    }
-}

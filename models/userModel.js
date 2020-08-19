@@ -1,17 +1,17 @@
+// --import crypto
+const crypto = require('crypto')
 const mongoose = require('mongoose')
 // validator
 const validator = require('validator')
 const uniqueValidator = require('mongoose-unique-validator')
-
 const bcrypt = require('bcryptjs')
-// --import crypto
-const crypto = require('crypto')
+
 
 // create a schema
 const userSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
-        required: [true, 'Please tell us your name']
+        required: [true, 'Please tell us your name!']
     },
     email: {
         type: String,
@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     photo: String,
     role: {
-        type:String,
+        type: String,
         enum: ['user', 'guide', 'lead-guide', 'admin'],
         default: 'user'
     },
@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
                  return el === this.password 
                 //  -this validationonly works on create ,save, so update a user, we use save
              },
-             message: 'passwords are not the same'
+             message: 'Passwords are not the same!'
          }
     },
     passwordChangedAt: Date,
@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
 
     }
 
-})
+});
 
 
 ////ENCRYPTING PASSWORD
@@ -73,55 +73,63 @@ if (!this.isModified('password')) return next()
 
     // --hashing the password confrim(this deletes it after)
     this.passwordConfirm = undefined
-    next()
-}) 
+    next();
+});
 
 
 // function wch runs right before the docu is saved
 userSchema.pre('save', function(next){
     // --this shd be done when we modify password prop
-    if(!this.isModified('password')|| this.isNew ) return next();
+    if(!this.isModified('password') || this.isNew ) return next();
+
     this.passwordChangedAt = Date.now() - 1000;
     next();
-})
+});
 
 
 // --to avoid active/inactive from appearing in the getAllUsers 
 userSchema.pre(/^find/, function(next) {
     // this points to the current query
     // --here we want to only find documents tht have the active property set to true
-    this.find({ active: {$ne: false} })
+    this.find({ active: {$ne: false } })
     next();
-})
+});
 
 userSchema.plugin(uniqueValidator)
 ////////////////////////////////////////////////////////////
 /////////PASSWORD VALIDATION///////////////////////////////
 // --we use a func to encrypt the jst entered password to compare with the original password in the userModel
 // --creating an instance method(this is a method available on all documents of a certain collection)
-userSchema.methods.correctPassword = async function(candidatePassword, userPassword){
-    return await bcrypt.compare(candidatePassword, userPassword) // return 2 passwords if they are the same else return false
+userSchema.methods.correctPassword = async function(
+    candidatePassword, 
+    userPassword
+    ){
+    return await bcrypt.compare(candidatePassword, userPassword); // return 2 passwords if they are the same else return false
 }
 
 ////////////change password/////////////////////
-userSchema.methods.changePasswordAfter = function(JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
     // if password changed, do the comparison
     if(this.passwordChangedAt) {
         // --convert passwordChangedAt to  timestamp, 10--base 10 number
-        const changedTimeStamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+        const changedTimeStamp = parseInt(
+            this.passwordChangedAt.getTime() / 1000, 10);
         // console.log(changedTimeStamp, JWTTimestamp)
         return JWTTimestamp < changedTimeStamp; //not changed means the day and time token issued is less thn changed timestamp
     }
     // --false means not changed
     return false;
-}
+};
 
 // --user schema for forgotten password
 userSchema.methods.createPasswordResetToken = function() {
     // --reset the password token to send to user
     const resetToken = crypto.randomBytes(32).toString('hex')
     //  ecnrypt the token
-    this.passwordResetToken =  crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.passwordResetToken =  crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex')
 
     console.log({resetToken}, this.passwordResetToken)
     // password reset expires in 10 mins

@@ -109,3 +109,13 @@ back with each subsequent request
 
 --we can access tokens from headers in postman and also cookies from the browser cookies
 
+Lecture 16:
+Logging in Users with Our API part 2:
+--conditionally render the login and signup part in our client
+--this rendering happens in the backend
+--for pug to knw whether the user is logged in or not, we create a new middleware function
+-- the reason is to check if the user is loggedin or not
+--we do this in our authControler
+
+--we implement alerts for the login successfully and the incorrect password or email
+--we then redirect the user once successfully loggedin to the homepage

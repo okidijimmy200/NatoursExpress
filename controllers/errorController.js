@@ -23,6 +23,10 @@ const handleValidationErrorDB = err => {
     return new AppError(message, 400)
 }
 
+// creating error for handleJWTError
+const handleJWTError = ()=> new AppError('Invalid token!. Please log in again', 401)
+
+const handleJwTExpiredError = ()=> new AppError('Your token has expired! please login again.', 401)
 // ---const for dev
 const sendErrorDev = (err, res) => {
       // --if dev, send one type of error
@@ -37,10 +41,7 @@ const sendErrorDev = (err, res) => {
     })
 }
 
-// creating error for handleJWTError
-const handleJWTError = ()=> new AppError('Invalid token!. Please log in again', 401)
 
-const handleJwTExpiredError = ()=> new AppError('Your token has expired! please login again.', 401)
 
 const sendErrorProd = (err, res) => {
     // --checking if error isOperational type
@@ -96,3 +97,4 @@ module.exports = (err, req, res, next) => {
 }
 
 // --error comes from not having the object NAME
+
