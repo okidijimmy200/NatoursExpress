@@ -26,18 +26,20 @@ const createSendToken = (user, statusCode, res) => {
        // --using the JWT(payload, secret)
        const token = signToken(user._id )
        const cookieOptions = {
-       expires: new Date(
-           Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
-       httpOnly: true // cookie cant be modified in the browser
+        expires: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+        httpOnly: true // cookie cant be modified in the browser
     };
     // --to perform secure to true in prod only
     if(process.env.NODE_ENV === 'production') cookieOptions.secure = true //secure: true, //cookie will be sent only on https
 
+     ////////////send a cookie
+     res.cookie('jwt', token, cookieOptions )
+
     // --to hide the password display on signup
     user.password = undefined
 
-       ////////////send a cookie
-       res.cookie('jwt', token, cookieOptions )
+      
        // send new user to client
        res.status(statusCode).json({
            status: 'Success',
@@ -53,7 +55,13 @@ exports.signup = catchAsync(async(req, res, next) => {
     // creating newUser
     // const newUser = await User.create(req.body)
     // --we will use the 2nd authentication to avoid any user signin up as admin
-    const newUser = await User.create(req.body)
+    // const newUser = await User.create(req.body)
+    const newUser = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm
+      });
     createSendToken(newUser, 201, res)
     // wrap the func into the catch async function
 })
@@ -108,7 +116,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     let token;
     // 1) Get token and check if it exists
     // --we use http header with token to check if it exists
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+    if(
+        req.headers.authorization && 
+        req.headers.authorization.startsWith('Bearer')
+        ){
         token = req.headers.authorization.split(' ')[1] // split bearer array to 2 and take the second part of array
     }
     // --reading jwt from the cookie
@@ -142,6 +153,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     //Grant access to protected route if it succeds all  the above step
     req.user = freshUser; //place the user data on request
+    res.locals.user = freshUser; // to pass user to templates
     next();
 });
 

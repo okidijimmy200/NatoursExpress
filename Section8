@@ -159,3 +159,8 @@ Logging out Users
 Lecture 19:
 Rendering Error Pages to Users:
 --error for wrong URl
+
+Lecture 20:
+Building the User Account Page:
+--we have an account for user where we can change basic settings, update passwords, menu items, if the user
+is admin or not.
