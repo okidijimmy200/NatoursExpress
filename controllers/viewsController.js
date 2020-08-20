@@ -1,7 +1,8 @@
 const Tour = require('../models/tourModel ')
 const catchAysnc = require('../utils/catchAsync')
 const appError = require('../utils/appError')
-
+const User = require('../models/userModel')
+const uniqueValidator = require('mongoose-unique-validator')
 
 exports.getOverview = catchAysnc( async(req,res) => {
 
@@ -49,3 +50,23 @@ exports.getAccount = (req, res) => {
         title: 'Your account'
     })
 }
+
+// --updateUserData
+exports.updateUserData = catchAysnc(async(req, res, next) => {
+    const updatedUser = await User.findByIdAndUpdate(
+        req.user.id, 
+        {
+        name: req.body.name,
+        email: req.body.email
+    }, {
+        new: true,
+        uniqueValidator: true,
+        context: 'query'
+    }
+    )
+    // --render the account page again with diff content
+    res.status(200).render('account', {
+        title: 'Your account',
+        user: updatedUser
+    })
+})

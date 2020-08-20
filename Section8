@@ -164,3 +164,11 @@ Lecture 20:
 Building the User Account Page:
 --we have an account for user where we can change basic settings, update passwords, menu items, if the user
 is admin or not.
+
+Lecture 21:
+Updating User data:
+--updating the user data,for both name and email
+--we can submit a post request to our API
+--we can also use the post method ryt on the form along with the URl where the form shd be sent to
+--this automatically happens with the HTML form
+--challenge with this is tht it reloads to the form and requires us to have a route in the backend.

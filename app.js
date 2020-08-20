@@ -64,6 +64,11 @@ app.use('/api', limiter) // this affects all routes tht start with api
 // using middleware
 app.use(express.json({ limit: '10kb'}))
 
+// middleware to parse data coming from a URL encoded form
+app.use(express.urlencoded({
+    extended: true,
+    limit: '10kb'
+}))
 // cookie parser middleware
 app.use(cookieParser())
 
