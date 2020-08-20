@@ -12,6 +12,7 @@ const router = express.Router()
 // --we need to do auth wch makes user abit different
 router.post('/signup', authController.signup)
 router.post('/login', authController.login)
+router.get('/logout', authController.logout)
 
 // routes for fogetten password and reset password
 router.post('/forgotPassword', authController.forgotPassword)

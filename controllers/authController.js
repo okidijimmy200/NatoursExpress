@@ -87,6 +87,21 @@ exports.login =catchAsync(async (req, res, next) =>{
     createSendToken(user, 200, res)
 
 })
+
+//////////////////////////////////////////////////////////
+//////////creating logout middleware//////////////
+exports.logout = (req, res) => {
+    res.cookie('jwt', 'loggedout', {
+        expires: new Date(Date.now() + 10 * 1000), //cookie expires in 10seconds
+        httpOnly: true
+    })
+    res.status(200).json({
+        status: 'success'
+    })
+}
+
+
+
 ///////////////////////////////////////////////////////////////
 ///////////Middleware for protecting getAlltours route
 exports.protect = catchAsync(async (req, res, next) => {

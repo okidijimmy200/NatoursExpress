@@ -148,3 +148,10 @@ Logging in Users with Our API:
 --we then create the alerts
 
 --we create a show alerts function 
+
+Lecture 18:
+Logging out Users
+--secure way to logout a user
+--this cookie is an httpOnly cookie meaning we cantmanipulate the cookie in our browser
+--we create a new logout route tht sends a new cookie with the exact same name without a token
+--we give the cookie a short expiration time wch is  similar to deleting the cookie
