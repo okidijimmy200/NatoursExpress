@@ -155,3 +155,7 @@ Logging out Users
 --this cookie is an httpOnly cookie meaning we cantmanipulate the cookie in our browser
 --we create a new logout route tht sends a new cookie with the exact same name without a token
 --we give the cookie a short expiration time wch is  similar to deleting the cookie
+
+Lecture 19:
+Rendering Error Pages to Users:
+--error for wrong URl

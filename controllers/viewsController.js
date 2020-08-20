@@ -1,5 +1,6 @@
 const Tour = require('../models/tourModel ')
 const catchAysnc = require('../utils/catchAsync')
+const appError = require('../utils/appError')
 
 
 exports.getOverview = catchAysnc( async(req,res) => {
@@ -20,12 +21,18 @@ exports.getTour =  catchAysnc(async(req,res, next) => {
         path: 'reviews',
         fields: 'review rating user' 
     })
+
+    // --incase of no tour
+    if(!tour) {
+        return next(new appError('There is no tour with that name', 404 ))
+    }
     // 2) Build our template
     // 3) Render template using data from 1
     res.status(200).render('tour', {
         title: `${tour.name} Tour`,
         tour
     })
+    
 })
 
 // login controller

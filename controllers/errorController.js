@@ -28,42 +28,78 @@ const handleJWTError = ()=> new AppError('Invalid token!. Please log in again', 
 
 const handleJwTExpiredError = ()=> new AppError('Your token has expired! please login again.', 401)
 // ---const for dev
-const sendErrorDev = (err, res) => {
-      // --if dev, send one type of error
-      res.status(err.statusCode).json({
-        status: err.status,
-        // --print the entire error
-        error: err,
-        name:err.name,
-        message: err.message, //passed on from const err above 
-        // --printing the response 
-        stack: err.stack
-    })
+const sendErrorDev = (err, req, res) => {
+    // --error on clientSide
+    //A) --API--
+        if(req.originalUrl.startsWith('/api')) {
+            // --if dev, send one type of error
+            return res.status(err.statusCode).json({
+                status: err.status,
+                // --print the entire error
+                error: err,
+                name:err.name,
+                message: err.message, //passed on from const err above 
+                // --printing the response 
+                stack: err.stack
+            })
+        }
+        //Rendered website
+            // render error
+            console.error('Error', err)
+            return res.status(err.statusCode).render('error', {
+              title: 'Something went wrong',
+              msg: err.message
+            })
+      
 }
 
 
 
-const sendErrorProd = (err, res) => {
-    // --checking if error isOperational type
-    if(err.isOperational) {
-         // --if dev, send one type of error
-    res.status(err.statusCode).json({
+const sendErrorProd = (err, req, res) => {
+    // a) API
+    if(req.originalUrl.startsWith('/api')) {
+            // --checking if error isOperational type
+        if(err.isOperational) {
+            // --if dev, send one type of error
+            return res.status(err.statusCode).json({
         status: err.status,
         message: err.message //passed on from const err above 
     })
     }
-    // Programming or other unknown error
-    // --else send generic message to client
-    else{
-        // 1) log error
-        console.error('Error', err)
-        
-        // 2) send generic message
-        res.status(500).json({
-            status: 'error',
-            message: 'Something went wrong'
-        })
-    }
+   // Programming or other unknown error
+   // --else send generic message to client
+   
+       // 1) log error
+    console.error('Error', err)
+       
+       // 2) send generic message
+    return res.status(500).json({
+        status: 'error',
+        message: 'Something went wrong'
+    })
+    } 
+    //b) rendered website  
+            // --checking if error isOperational type
+    if(err.isOperational) {
+        // --if dev, send one type of error
+        console.log(err)
+        return res.status(err.statusCode).render('error', {
+        title: 'Something went wrong',
+        msg: err.message //passed on from const err above 
+    });
+   }
+   //B) Programming or other unknown error
+   // --else send generic message to client
+   
+       // 1) log error
+    console.error('Error', err)
+       
+       // 2) send generic message
+    return res.status(err.statusCode).render('error', {
+        title: 'something went wrong',
+        msg: 'Please try again later' //passed on from const err above 
+    })
+
    
 }
 
@@ -76,11 +112,12 @@ module.exports = (err, req, res, next) => {
 
     // --distinguishing btn prod and dev environment
     if(process.env.NODE_ENV === 'development'){
-      sendErrorDev(err, res);
+      sendErrorDev(err,req,  res);
     }
     else if (process.env.NODE_ENV === 'production') {
         // --not good to declare  hard copy of var like err
         let error = { ...err };
+        error.message = err.message;
         // --checking if the error is a wrong id field
         ///  ER.NAME =='NOT RECOMMENDED BCOZ AM CALLING THE ORIGNAL COPY OF ERR,--THE ERROR.NAME FAILED TO WORK BCOZ ERR PRINT DOESNT PRINT NAME
         // SO I HAD TO GET THE ACTUAL ERR OBJECT FOR NAME'
@@ -91,7 +128,7 @@ module.exports = (err, req, res, next) => {
         if(err.name === 'ValidationError') error = handleValidationErrorDB(error)
         if (error.name === 'JsonWebTokenError') error = handleJWTError()
         if (error.name === 'TokenExpiredError') error = handleJwTExpiredError()
-        sendErrorProd(error, res)
+        sendErrorProd(error, req, res)
     }
     
 }
