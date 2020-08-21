@@ -114,7 +114,7 @@ app.use(express.static(`${__dirname}/public`))
 app.use((req, res, next)  => {
     // adding current time to the request and onverting it to string
     req.requestTime = new Date().toISOString(); 
-    console.log(req.cookies) // --logging the cookies to the console   
+    // console.log(req.cookies) // --logging the cookies to the console   
     next();
 })
 

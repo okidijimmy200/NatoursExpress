@@ -1,3 +1,14 @@
 ADVANCED FEATURES, PAYMENTS, EMAIL, FILE UPLOADS:
 LECTURE 1;
 IMAGE UPLOADS USING MULTER USERS:
+---implementing image uploads for image photos
+--multer is used to handle multi-part form data wch is a form in coding
+tht is used to upload files from a form
+--multer is a middleware for multi-part form data.
+--we will allow the user to  upload a photo on the Update Me route and instead ofjst being  able to update email and photo
+install package
+
+**********************npm i multer********************
+
+--in postman to update the photo, we use the form data
+--foe photo,we specify the file
