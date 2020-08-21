@@ -13,6 +13,8 @@ router.get('/login',authController.isLoggedIn, viewController.getLoginForm)
 router.get('/me', authController.protect, viewController.getAccount)
 
 // route to submit the account form in pug
-router.post('/submit-user-data', authController.protect, viewController.updateUserData)
+router.post('/submit-user-data', 
+    authController.protect,
+    viewController.updateUserData)
 module.exports = router
 

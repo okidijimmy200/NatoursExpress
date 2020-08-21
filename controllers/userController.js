@@ -7,6 +7,7 @@ const User = require('../models/userModel')
 const AppError = require('../utils/appError')
 // --import handlerFactory
 const factory = require('./handlerFactory')
+const uniqueValidator = require('mongoose-unique-validator')
 
 
 ///function to filter bodyobj
@@ -36,8 +37,11 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     // --here we use findbyid and updte, x is the data to update
     
     const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+        // new: true,
+        // runValidators: true
         new: true,
-        runValidators: true
+        uniqueValidator: true,
+        context: 'query'
     });
 
     res.status(200).json({
