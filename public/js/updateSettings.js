@@ -2,19 +2,21 @@
 import axios from 'axios'
 import {showAlert} from './alerts'
 
-export const updateData = async(name, email) => {
+// type of data wch is either password or data
+export const updateSetting = async(data, type) => {
     try {
+        // making either urls work using ternary operator
+        const url = type === 'password' ? 'http://127.0.0.1:8080/api/v1/users/updateMyPassword' :
+        'http://127.0.0.1:8080/api/v1/users/updateMe'
+
         const res = await axios({
             method: 'PATCH',
-            url:'http://127.0.0.1:8080/api/v1/users/updateMe',
-            data: {
-                name: name,
-                email: email
-            }
+            url,
+            data: data
 
         })
         if(res.data.status === 'Success') {
-            showAlert('success', 'Data updated successfuly')
+            showAlert('success', `${type.toUpperCase} Data updated successfuly`)
         }
     }
     catch(err) {
