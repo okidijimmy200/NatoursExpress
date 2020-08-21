@@ -36,7 +36,10 @@ exports.updateOne = Model => catchAsync(async (req, res, next) => {
     // querying document we want to update based on id
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
-        runValidators: true
+        // runValidators: true
+        uniqueValidator: true,
+        context: 'query'
+        
     })
 
     

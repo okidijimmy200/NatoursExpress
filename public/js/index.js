@@ -52,9 +52,9 @@ if (userPasswordForm) userPasswordForm.addEventListener('submit', async e => {
         await updateSetting({passwordCurrent, password, passwordConfirm}, 'password')
 
         // --to delete password data after submitting form
-        document.querySelector('.btn--save-password').textContent = 'Save Password'
-        document.getElementById('password-current').value = ''
-        document.getElementById('password').value = ''
-        document.getElementById('password-confirm').value = ''
+        document.querySelector('.btn--save-password').textContent = 'Save Password';
+        document.getElementById('password-current').value = '';
+        document.getElementById('password').value = '';
+        document.getElementById('password-confirm').value = '';
 
     })
