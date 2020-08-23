@@ -12,3 +12,8 @@ install package
 
 --in postman to update the photo, we use the form data
 --foe photo,we specify the file
+
+LECTURE 2:
+CONFIGURING MULTER:
+--giving images a better file name and allowing only image files to be uploaded onto the server.
+--we will create one multer storage and one multer filter wch we will use to create upload

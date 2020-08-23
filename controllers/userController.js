@@ -2,13 +2,43 @@
 const catchAsync = require('../utils/catchAsync')
 // importing the tour model
 const User = require('../models/userModel')
-
+const multer = require('multer')
 // import app error
 const AppError = require('../utils/appError')
 // --import handlerFactory
 const factory = require('./handlerFactory')
 const uniqueValidator = require('mongoose-unique-validator')
 
+// --multer storage
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => //destination is a callback tht has access to the req, currently uploaded file and to a callback function
+    {
+        cb(null, 'public/img/users' ) //cb---callback
+    },
+    filename: (req, file, cb) => {
+        // --user id
+        const ext = file.mimetype.split('/')[1];
+        cb(null, `user-${req.user.id}-${Date.now()}.${ext}`)
+    }
+})
+
+// --creating a multer filter
+const multerFilter = (req, file, cb) => {
+    // --test if uploaded file is an image
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true)
+    } else {
+        cb(new AppError('Not an image! Please upload only images', 400), false)
+    }
+}
+
+// configure multer upload
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter
+})
+
+exports.uploadUserPhoto = upload.single('photo');
 
 ///function to filter bodyobj
 const filterObj =(obj, ...allowedFields) => {
@@ -87,3 +117,6 @@ exports.getUser = factory.getOne(User)
 // donot update password with this
 exports.updateUser =  factory.updateOne(User) // this is for only admin and only updating data tht is not password
 exports.deleteUser = factory.deleteOne(User);
+
+
+

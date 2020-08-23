@@ -1,16 +1,8 @@
 const express = require('express')
-const multer = require('multer')
 
 // importing user controllers
 const userController = require('./../controllers/userController')
 const authController = require('../controllers/authController')
-
-
-// configure multer upload
-const upload = multer({
-    // images r not direcctly loaded into the database 
-    dest: 'public/img/users' //where to save the images tht are being uploaded
-})
 
 // user router
 const router = express.Router()
@@ -40,8 +32,7 @@ router.get('/me',
         userController.getUser)
 
 // change user data
-router.patch('/updateMe',  upload.single('photo'),
-        userController.updateMe)
+router.patch('/updateMe',userController.uploadUserPhoto, userController.updateMe)
 // delete user
 router.delete('/deleteMe',
             userController.deleteMe)
