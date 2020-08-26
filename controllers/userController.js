@@ -9,18 +9,23 @@ const AppError = require('../utils/appError')
 const factory = require('./handlerFactory')
 const uniqueValidator = require('mongoose-unique-validator')
 
+const sharp = require('sharp');
+
 // --multer storage
-const multerStorage = multer.diskStorage({
-    destination: (req, file, cb) => //destination is a callback tht has access to the req, currently uploaded file and to a callback function
-    {
-        cb(null, 'public/img/users' ) //cb---callback
-    },
-    filename: (req, file, cb) => {
-        // --user id
-        const ext = file.mimetype.split('/')[1];
-        cb(null, `user-${req.user.id}-${Date.now()}.${ext}`)
-    }
-})
+// const multerStorage = multer.diskStorage({
+//     destination: (req, file, cb) => //destination is a callback tht has access to the req, currently uploaded file and to a callback function
+//     {
+//         cb(null, 'public/img/users' ) //cb---callback
+//     },
+//     filename: (req, file, cb) => {
+//         // --user id
+//         const ext = file.mimetype.split('/')[1];
+//         cb(null, `user-${req.user.id}-${Date.now()}.${ext}`)
+//     }
+// })
+
+// multer storage(to store image as a buffer)
+const multerStorage = multer.memoryStorage()
 
 // --creating a multer filter
 const multerFilter = (req, file, cb) => {
@@ -40,6 +45,24 @@ const upload = multer({
 
 exports.uploadUserPhoto = upload.single('photo');
 
+// --performing image processing
+exports.resizeUserPhoto = (req, res, next) => {
+    if (!req.file) return next();
+
+    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`
+
+    // when doing image processing like this,store it in the memory
+    // (call the sharp to create object to perform multipleimage processing)
+    sharp(req.file.buffer)
+    .resize(500, 500)
+    .toFormat('jpeg')
+    .jpeg({quality: 90})
+    .toFile(`public/img/users/${req.file.filename}`)
+
+    next();
+
+    
+}
 ///function to filter bodyobj
 const filterObj =(obj, ...allowedFields) => {
     // --fileds to pass in to check if its an allowed fields

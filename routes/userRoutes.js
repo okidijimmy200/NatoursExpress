@@ -32,7 +32,9 @@ router.get('/me',
         userController.getUser)
 
 // change user data
-router.patch('/updateMe',userController.uploadUserPhoto, userController.updateMe)
+router.patch('/updateMe',userController.uploadUserPhoto,
+            userController.resizeUserPhoto ,
+            userController.updateMe)
 // delete user
 router.delete('/deleteMe',
             userController.deleteMe)

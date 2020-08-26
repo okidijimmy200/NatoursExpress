@@ -24,3 +24,16 @@ Saving Image Name to Database:
 
 --what happens when we create a new user, they will not have a photo at the beginning
 --we use a default image
+
+LECTURE 4:
+Resizing Images:
+--we will practice image processing and manipulation with Node
+--how do we resize and convert our images
+--assuming the images are super large and not square,
+--we need to resize the images and make them square.
+--we perform this in the updateMe middleware
+--we will use the sharp package
+
+******************npm i sharp************
+--this is an image processing library best for image resizing
+
