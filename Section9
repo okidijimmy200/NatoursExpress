@@ -37,3 +37,6 @@ Resizing Images:
 ******************npm i sharp************
 --this is an image processing library best for image resizing
 
+LECTURE 5:
+Adding Image Uploads to form:
+--Allowing users to upload phots ryt on our website
