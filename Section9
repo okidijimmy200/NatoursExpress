@@ -60,3 +60,7 @@ Building acomplex Email Handler:
 --we will install a package to strip out all the html and leave only text
 
 **********npm i html-to-text***************
+
+LECTURE 9:
+Email Templates with Pug welcome Emails::
+--sending a welcome template with pug

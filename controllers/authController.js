@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 // --import app error
 const AppError = require('../utils/appError')
 // --import mail
-const sendEmail = require('../utils/email')
+const Email = require('../utils/email')
 // import crypt
 const crypto = require('crypto')
 
@@ -62,6 +62,9 @@ exports.signup = catchAsync(async(req, res, next) => {
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm
       });
+      const url = `${req.protocol}://${req.get('host')}/me`
+      console.log(url)
+      await new Email(newUser, url).sendWelcome()
     createSendToken(newUser, 201, res)
     // wrap the func into the catch async function
 })
@@ -225,11 +228,11 @@ exports.forgotPassword = catchAsync(async(req, res, next) => {
 
     // --incase of error, we want to perform some actions
     try {
-        await sendEmail({
-            email: req.body.email,
-            subject: 'Your password resettoken (valid for 10 mins)',
-            message
-        });
+        // await sendEmail({
+        //     email: req.body.email,
+        //     subject: 'Your password resettoken (valid for 10 mins)',
+        //     message
+        // });
         res.status(200).json({
             status: 'success',
             message:'Token sent to email'
