@@ -18,6 +18,7 @@ CONFIGURING MULTER:
 --giving images a better file name and allowing only image files to be uploaded onto the server.
 --we will create one multer storage and one multer filter wch we will use to create upload
 
+
 LECTURE 3:
 Saving Image Name to Database:
 ---saving the image name to the database in filteredBody
@@ -40,3 +41,10 @@ Resizing Images:
 LECTURE 5:
 Adding Image Uploads to form:
 --Allowing users to upload phots ryt on our website
+
+LECTURE 6:
+Uploading multer Images Tour::
+--how to upload multiple files at the sametime and process multiple images
+at the same time
+--uploading and processing tour pictures
+--we will have imgeCover and images for tourModel

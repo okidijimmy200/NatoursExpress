@@ -1,5 +1,6 @@
 // const express = require('express')
-
+const multer = require('multer')
+const sharp = require('sharp')
 
 // importing the tour model
 const Tour = require('../models/tourModel ')
@@ -17,6 +18,46 @@ const factory = require('./handlerFactory')
 // const tours = JSON.parse(
 //     fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`, 'UTF-8')
 // );
+
+
+
+
+
+// multer storage(to store image as a buffer)
+const multerStorage = multer.memoryStorage()
+
+// --creating a multer filter
+const multerFilter = (req, file, cb) => {
+    // --test if uploaded file is an image
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true)
+    } else {
+        cb(new AppError('Not an image! Please upload only images', 400), false)
+    }
+}
+
+// configure multer upload
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter
+})
+
+//middleware for uploads
+exports.uploadTourImages = upload.fields([
+    {name: 'imageCover', maxCount: 1},
+    {name: 'images', maxCount: 3}
+])
+
+/////////middleware to process images
+exports.resizeTourImages = (req, res, next) => {
+    console.log(req.files)
+    next()
+}
+
+//////////upload variations?///////////////
+// upload.single('image') //one req.file
+// //if we had one filed tht accepts multiple fields at once
+// upload.array('images', 5) //multiple req.files(plural)
 
 exports.aliasTopTours = (req, res, next) => {
     req.query.limit = '5';
