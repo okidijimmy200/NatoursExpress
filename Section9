@@ -52,3 +52,11 @@ at the same time
 LECTURE 7:
 Processing Multiple Images:
 --processing all the images
+
+LECTURE 8:
+Building acomplex Email Handler:
+--sending emails
+--we will build email templates with pug and send emails  with the sendGrid service
+--we will install a package to strip out all the html and leave only text
+
+**********npm i html-to-text***************
