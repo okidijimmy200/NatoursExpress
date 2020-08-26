@@ -49,10 +49,38 @@ exports.uploadTourImages = upload.fields([
 ])
 
 /////////middleware to process images
-exports.resizeTourImages = (req, res, next) => {
-    console.log(req.files)
-    next()
-}
+exports.resizeTourImages = catchAsync(async(req, res, next) => {
+    // --if no images uploaded
+    if (!req.files.imageCover || !req.files.images)
+    return next()
+
+    // if images present
+    // 1) Cover Image
+    // --to update the file
+    req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`
+    await sharp(req.files.imageCover[0].buffer)
+    .resize(2000, 1333) //2/3 ratio
+    .toFormat('jpeg')
+    .jpeg({quality: 90})
+    .toFile(`public/img/tours/${req.body.imageCover }`)
+    
+    // --2) other Images
+    // --loop to process each
+    req.body.images = [] // we need to create an array for req.body
+    await Promise.all(req.files.images.map(async(file, i) => { // i is the index position of the images
+        const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`
+
+        await sharp(file.buffer)
+            .resize(2000, 1333) //2/3 ratio
+            .toFormat('jpeg')
+            .jpeg({quality: 90})
+            .toFile(`public/img/tours/${filename }`)
+
+            //pushing each file to images array
+            req.body.images.push(filename)
+            }))
+    next();
+})
 
 //////////upload variations?///////////////
 // upload.single('image') //one req.file

@@ -46,14 +46,14 @@ const upload = multer({
 exports.uploadUserPhoto = upload.single('photo');
 
 // --performing image processing
-exports.resizeUserPhoto = (req, res, next) => {
+exports.resizeUserPhoto =catchAsync(async (req, res, next) => {
     if (!req.file) return next();
 
     req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`
 
     // when doing image processing like this,store it in the memory
     // (call the sharp to create object to perform multipleimage processing)
-    sharp(req.file.buffer)
+    await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({quality: 90})
@@ -62,7 +62,7 @@ exports.resizeUserPhoto = (req, res, next) => {
     next();
 
     
-}
+})
 ///function to filter bodyobj
 const filterObj =(obj, ...allowedFields) => {
     // --fileds to pass in to check if its an allowed fields
