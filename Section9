@@ -68,3 +68,13 @@ Email Templates with Pug welcome Emails::
 LECTURE 10:
 Sending Password reset Emails:
 --set emails for Password reset
+
+LECTURE 11:
+Using sendgrid for real emails:
+--we search the sendgrid on google and create an account
+--click the setup guide
+-we create an API key with aname
+--we get a username and password
+--we place it in config
+
+--we used mail Sac to generate email_from
