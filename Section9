@@ -78,3 +78,21 @@ Using sendgrid for real emails:
 --we place it in config
 
 --we used mail Sac to generate email_from
+
+LECTURE 12:
+Credit Card Payment with stripe:
+--how to accept credit card inorder for users to buy tours
+
+--stripe workflow
+***BACKEND__route to implement stripe chekout session wch contains tour price, name
+        |
+        v
+***FRONT END --request cheeckout session
+            |
+            v
+--change credit-card using session
+
+**BACKEND
+--use stripe webhook to create new bookings
+
+
