@@ -64,3 +64,7 @@ Building acomplex Email Handler:
 LECTURE 9:
 Email Templates with Pug welcome Emails::
 --sending a welcome template with pug
+
+LECTURE 10:
+Sending Password reset Emails:
+--set emails for Password reset
