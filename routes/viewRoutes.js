@@ -17,7 +17,7 @@ router.get(
     '/my-tours',
     bookingController.createBookingCheckout,
     authController.protect,
-    viewsController.getMyTours
+    viewController.getMyTours
   );
 
 // route to submit the account form in pug
