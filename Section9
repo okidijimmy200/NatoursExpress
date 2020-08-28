@@ -92,6 +92,43 @@ Credit Card Payment with stripe:
             v
 --change credit-card using session
 
+LECTURE 13:
+Integrating stripe with the backend:
+--we will start with the booking routes
+--we need to install the stripe package
+*******npm i stripe*****
+--we get our secret key from our stripe dashboard
+
+LECTURE 14:
+processing payment on the frontend
+
+LECTURE 15:
+Modelling the booking
+
+LECTURE 16:
+Creating New Bookings on checkout::
+
+LECTURE 17:
+Rendering a user's booked tour::
+
+LECTURE 18:
+Finishing the Booking APIs
+
+LECTURE 19:
+Final Considerations:
+--you cld add restrictions tht users can only review a tour tht they have
+actually booked
+--implement some nested booking routes
+--you cld improve date by adding participants and soldout fields
+--implement some advanced auth features with the link they need to click
+--we cld keep the user loggedi with refresh tokens
+--implement the signup form
+--tour detail page, user can add a review if the user hs taken the tour
+--we cld hide the entire booking section if the user has already booked the tour
+--we cld implement a like tour functionality
+--we cld implement my reviews page on the user account
+--for admin, we create manage page where they can implement RUD operations
+
 **BACKEND
 --use stripe webhook to create new bookings
 

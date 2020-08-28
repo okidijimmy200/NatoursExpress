@@ -30,6 +30,7 @@ const userRouter = require('./routes/userRoutes')
 
 // importing viewRouter
 const viewRouter = require('./routes/viewRoutes')
+const bookingRouter = require('./routes/bookingRoutes') //booking router
 
 // cookie parser to handle incoming requests from client
 const cookieParser = require('cookie-parser')
@@ -126,6 +127,7 @@ app.use('/', viewRouter) // this goes straighr to the review router
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);//mounting reviews to new path
+app.use('/api/v1/bookings',  bookingRouter);
 
 
 // --router wch is implemented only if other routes have not bn implemented
