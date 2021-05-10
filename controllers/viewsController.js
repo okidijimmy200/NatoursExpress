@@ -52,6 +52,12 @@ exports.getAccount = (req, res) => {
     })
 }
 
+  //signup users
+exports.getSignupForm =  (req, res ) => {
+      res.status(200).render('signup', {
+          title: 'Signup to get an account'
+      })
+}
 
 exports.getMyTours = catchAysnc(async (req, res, next) => {
     // 1) Find all bookings
@@ -66,6 +72,8 @@ exports.getMyTours = catchAysnc(async (req, res, next) => {
       tours
     });
   });
+
+
 
 // --updateUserData
 exports.updateUserData = catchAysnc(async(req, res, next) => {

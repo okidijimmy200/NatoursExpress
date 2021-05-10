@@ -894,10 +894,14 @@
     -ms-flex-pack: end;
     justify-content: flex-end;
   }
+  .logo_el {
+    height: 3.5rem;
+  }
   .nav__el,
   .nav__el:link,
   .nav__el:visited {
     color: #f7f7f7;
+    
     text-transform: uppercase;
     font-size: 1.6rem;
     text-decoration: none;

@@ -13,6 +13,9 @@ router.get('/login',authController.isLoggedIn, viewController.getLoginForm)
 // get account for signin users
 router.get('/me', authController.protect, viewController.getAccount)
 
+//signup users
+router.get('/signup', viewController.getSignupForm)
+
 router.get(
     '/my-tours',
     bookingController.createBookingCheckout,

@@ -50,7 +50,7 @@ mongoose.connect(process.env.DATABASE_LOCAL,{
 console.log(process.env)
 
 // start up a server
-const port = 8080
+const port = 4000
 const server = app.listen(port, () => {
     console.log(`App running on port ${port}...`)
 })

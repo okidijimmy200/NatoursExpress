@@ -18,6 +18,8 @@ const hpp = require('hpp')
 // --import apperror
 const AppError = require('./utils/appError')
 
+const cors = require('cors')
+
 // --import global error handler
 const globalErrorHandler = require('./controllers/errorController')
 // import reviewRouter
@@ -97,7 +99,7 @@ app.use(hpp({
 })) //prevent parameter pollution
 
 
-
+app.use(cors())
 // creating our own middleware functions
 // **wen we use morgan, its similar to using the middleware below
 // app.use((req, res, next)  => {
